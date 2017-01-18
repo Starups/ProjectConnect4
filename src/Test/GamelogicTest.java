@@ -90,6 +90,7 @@ public class GamelogicTest {
         assertTrue(gamelogic.gameEnd());
     }
 
+    @Test
     public void gameEndxasTest(){
         assertFalse(gamelogic.gameEnd());
     }
