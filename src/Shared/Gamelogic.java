@@ -1,6 +1,4 @@
-import Shared.Board;
-import Shared.Player;
-import Shared.Tile;
+package Shared;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -78,7 +76,7 @@ public class Gamelogic {
         this.gameEnd();
     }
 
-    public void gameEnd(){
+    public boolean gameEnd(){
         Boolean bool = false;
 
         if(players.get(0).getAmountTiles() == 0 && players.get(1).getAmountTiles() == 0){
@@ -92,6 +90,8 @@ public class Gamelogic {
         if(bool){
             System.out.println("GAME IS AFGELOPEN!");
         }
+
+        return bool;
     }
 
     //Four in a row in the x as.
