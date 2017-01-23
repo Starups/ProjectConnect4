@@ -8,12 +8,14 @@ public class Player {
     private Tile tile;
     private String name;
 
-    public Player(Tile tile, String name){
+    public Player(String name){
         setAmountTiles(32);
-        this.tile = tile;
         this.name = name;
     }
 
+    public void setTile(Tile tile){
+        this.tile = tile;
+    }
     public void setAmountTiles(int amount){
         amountTiles = amount;
     }

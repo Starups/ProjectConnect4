@@ -21,8 +21,8 @@ public class Gamelogic {
     public static void main(String[] args){
         Board board = new Board();
         Gamelogic gamelogic = new Gamelogic(board);
-        Player player1 = new Player(Tile.YELLOW, "Barry");
-        Player player2 = new Player(Tile.RED, "Henk");
+        Player player1 = new Player("Barry");
+        Player player2 = new Player("Henk");
         gamelogic.putPlayers(player1, player2);
         gamelogic.putTile(60);
     }

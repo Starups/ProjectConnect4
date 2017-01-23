@@ -27,8 +27,8 @@ public class GamelogicTest {
     public void setUp() {
         board = new Board();
         gamelogic = new Gamelogic(board);
-        henk = new Player(Tile.RED, "henk");
-        barry = new Player(Tile.YELLOW, "barry");
+        henk = new Player("henk");
+        barry = new Player("barry");
         gamelogic.putPlayers(henk, barry);
     }
 
