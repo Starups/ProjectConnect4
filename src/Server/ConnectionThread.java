@@ -7,23 +7,28 @@ import java.net.Socket;
 
 import Shared.*;
 
-public class ConnectionThread {
-	Socket socket;
-	Server server;
-	Connection connection;
+public class ConnectionThread extends Thread{
+	  Socket socket;
+	  Server server;
+	  PrintWriter out;
+	  BufferedReader inputStream;
+	  Connection connection;
 	
-	public ConnectionThread(Socket socket, Server server, Connection connection) {
-		this.server = server;
+	public ConnectionThread(Socket socket, Server server,
+		      PrintWriter out, BufferedReader inputStream, Connection connection) {
 		this.socket = socket;
-		this.connection = connection;
+	    this.server = server;
+	    this.out = out;
+	    this.inputStream = inputStream;
+	    this.connection = connection;
 	}
 	
-	 
-	 public void run() {
-	    Peer peer = new Peer(gamelogic, board, bag, server);
+	@Override
+	  public void run() {
+	    Peer peer = new Peer(server);
 	    server.connection(peer, socket);
 	    System.out.println("test");
-	    connection.read(peer, socket, out, inputStream);
+	    connection.read(socket, peer, out, inputStream);
 	  }
 	
 		
