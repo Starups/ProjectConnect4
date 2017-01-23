@@ -84,6 +84,18 @@ public class GamelogicTest {
     }
 
     @Test
+    public void putTileTest(){
+        gamelogic.putTile(0);
+
+        assertEquals(board.getTile(0), Tile.RED);
+
+        gamelogic.nextTurn();
+        gamelogic.putTile(1);
+
+        assertEquals(board.getTile(1), Tile.YELLOW);
+    }
+
+    @Test
     public void gameEndTest(){
         assertFalse(gamelogic.gameEnd());
         henk.setAmountTiles(0);
