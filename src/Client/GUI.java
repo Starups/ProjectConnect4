@@ -1,4 +1,4 @@
-/**
+package Client; /**
  * Created by Stan on 27-12-2016.
  */
 import javax.swing.*;

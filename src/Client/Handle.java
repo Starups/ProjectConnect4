@@ -23,6 +23,7 @@ public class Handle {
             command = command.replace("", ""); //To fix a weird bug where it would place 's in front of messages from the server
             if (command.equals("acceptrequest")) {
                 System.out.println("The server has accepted the connection.");
+                client.makePlayer();
             }
             if (command.equals("denyrequest")) {
                 System.out.println("This name has already been chosen.");
@@ -32,6 +33,7 @@ public class Handle {
             }
             if (command.equals("startgame")) {
                 System.out.println("A new game will be started.");
+                client.startGame();
             }
             if (command.equals("moverequest")) {
                 System.out.println("Please send your move.");

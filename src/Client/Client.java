@@ -13,6 +13,9 @@ public class Client {
     private Handle handle;
     private ServerCommunication sc = null;
     private Thread scThread = null;
+    private Gamelogic gamelogic;
+    private Board board;
+    String name = "";
 
     public static void main(String[] args) {
         Client client = new Client();
@@ -40,7 +43,6 @@ public class Client {
         port = new Integer(portEntry);
         System.out.println("port: " + port);
         System.out.println("Playing alias:");
-        String name = "";
         name = in.nextLine();
         while (name.equals("")) {
             System.out.println("Re-enter name: ");
@@ -60,4 +62,12 @@ public class Client {
         System.out.println("Joinrequest has been sended.");
     }
 
+    public void startGame(){
+        board = new Board();
+        gamelogic = new Gamelogic(board);
+    }
+
+    public void makePlayer(){
+        player = new Player(name);
+    }
 }

@@ -30,6 +30,11 @@ public class ServerCommunication extends Thread{
         }
     }
 
+    public void run() {
+        System.out.println("Reading");
+        read();
+    }
+
     public void write(String str) {
         out.println(str);
         System.out.println("Sent to Server: " + str);
