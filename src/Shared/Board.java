@@ -51,6 +51,12 @@ public class Board {
         return tileLocs;
     }
 
+    public void clear(){
+        for(int i = 0; i < 64; i++){
+            this.putTile(null, i);
+        }
+    }
+
     public void printBoard(){
         for(int z = 3; z >= 0; z--){
             System.out.println("z = " + z);

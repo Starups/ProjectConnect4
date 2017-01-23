@@ -253,10 +253,10 @@ public class Gamelogic {
     public boolean gameEndxyzas(){
         Boolean bool = false;
 
-        if(board.getTile(0) != null && board.getTile(3) != null && board.getTile(12) != null && board.getTile(15) != null &&
-                board.getTile(21) != null && board.getTile(22) != null && board.getTile(25) != null && board.getTile(26) != null &&
-                board.getTile(42) != null && board.getTile(41) != null && board.getTile(38) != null && board.getTile(37) != null &&
-                board.getTile(63) != null && board.getTile(60) != null && board.getTile(51) != null && board.getTile(48) != null){
+        if((board.getTile(0) != null && board.getTile(21) != null && board.getTile(42) != null && board.getTile(63) != null) ||
+                (board.getTile(3) != null && board.getTile(22) != null && board.getTile(41) != null && board.getTile(60) != null) ||
+                (board.getTile(12) != null && board.getTile(25) != null && board.getTile(38) != null && board.getTile(51) != null) ||
+                (board.getTile(15) != null && board.getTile(26) != null && board.getTile(37) != null && board.getTile(48) != null)){
             if((board.getTile(0).equals(board.getTile(21)) && board.getTile(0).equals(board.getTile(42)) && board.getTile(0).equals(board.getTile(63))) ||
                     (board.getTile(3).equals(board.getTile(22)) && board.getTile(3).equals(board.getTile(41)) && board.getTile(0).equals(board.getTile(60))) ||
                     (board.getTile(12).equals(board.getTile(25)) && board.getTile(12).equals(board.getTile(38)) && board.getTile(12).equals(board.getTile(51))) ||
