@@ -29,13 +29,16 @@ public class Connection extends Thread {
 	@Override
 	public void run() {
 		  try {
+		      
 		      while (true) {
+		    	  
 		        Socket socket = serversock.accept();
 		        ConnectionThread connectionThread = new ConnectionThread(socket, server, out,inputStream, this);
 		        connectionThread.start();
 		        System.out.println("Awaiting next connection");
 		      }
 		    } catch (IOException e1) {
+		    	 System.out.println("Error"+ e1);
 		      e1.printStackTrace();
 		    }
 
@@ -46,9 +49,29 @@ public class Connection extends Thread {
 		this.peer = peer;
 		this.out = out;
 		this.inputStream = inputStream;
+	    System.out.println("Reading: " + connection);
+	    try {
+	      while (!clientMessage.equals("Close")) {
+	        if (!clientMessage.equals("")) {
+	          System.out.println("clientMessage: " + clientMessage);
+	          String handledCommand = peer.handleCommand(clientMessage, this);
+	          
+	          if (handledCommand == "gameover") {
+	            this.close(connection);
+	          }
+	          write(handledCommand, new PrintWriter(connection.getOutputStream()));
+	        }
+
+	        clientMessage = inputStream.readLine();
+	      }
+	      this.close(connection);
+	    } catch (IOException e) {
+	      e.printStackTrace();
+	    }
+	  }
 	
 	
-		  }
+		  
 	 public void write(String str, PrintWriter out) {
 		    out.println(str);
 		  }
@@ -56,4 +79,12 @@ public class Connection extends Thread {
 	public Server getServer() {
 		    return server;
 		  }
+	public void close(Socket connection) {
+	    try {
+	      connection.close();
+	      System.out.println("The connection has been closed.");
+	    } catch (IOException e) {
+	      System.out.println("Error while closing: " + e);
+	    }
+	  }
 }

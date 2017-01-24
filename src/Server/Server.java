@@ -18,7 +18,7 @@ public class Server extends Thread{
 	
 	ServerSocket server = null;
 	Peer peer;
-	
+	private String functions = "";
 	
 	public Server() {
 		Start();
@@ -45,7 +45,7 @@ public class Server extends Thread{
 		          connectionThread.start();
 		          input.close();
 		} catch (Exception e) {
-	        System.out.println("Error while trying to make a server, Try another port");
+	        System.out.println("Error while trying to make a server, Try another port"+ e);
 	      }
 	    }
 	    input.close();
@@ -59,6 +59,9 @@ public class Server extends Thread{
 	  public Peer getPeer() {
 		    return peer;
 		  }
+	  public String getFunctions() {
+		  return functions;
+	  }
 	  public void connection(Peer peer, Socket socket) {
 		    try {
 		      System.out.println("Client connected: " + socket);

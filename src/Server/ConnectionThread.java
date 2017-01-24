@@ -13,6 +13,8 @@ public class ConnectionThread extends Thread{
 	  PrintWriter out;
 	  BufferedReader inputStream;
 	  Connection connection;
+	  Gamelogic gamelogic;
+	  Board board;
 	
 	public ConnectionThread(Socket socket, Server server,
 		      PrintWriter out, BufferedReader inputStream, Connection connection) {
@@ -25,7 +27,7 @@ public class ConnectionThread extends Thread{
 	
 	@Override
 	  public void run() {
-	    Peer peer = new Peer(server);
+	    Peer peer = new Peer(gamelogic, board, server);
 	    server.connection(peer, socket);
 	    System.out.println("test");
 	    connection.read(socket, peer, out, inputStream);
