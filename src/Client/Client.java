@@ -59,7 +59,6 @@ public class Client {
             scThread = new Thread(sc);
             scThread.start();
             sc.write("joinrequest " + name + " 0 0 0 0");
-            System.out.println("joinrequest " + name + " 0 0 0 0 has been written.");
         }
 
         while (true) {

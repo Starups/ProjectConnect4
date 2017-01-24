@@ -40,17 +40,17 @@ public class Peer {
 	    	  this.player = new Player(name, connection);
 		      lobby.putPlayer(player);
 		      result = "acceptrequest";
-	    	    while (fullCommand.hasNext()) {
-	    	          String next = fullCommand.next();
-	    	          if (server.getFunctions().contains(next)) {
-	    	            result = result + next;
-	    	          }
-	    	    }
-	    	    String sendall = "waitforclient"; {
-					sendall = sendall + " " + lobby.getPlayer().get(0).getName();
-	    	    }
-	    	    server.sendAll(sendall);
-	    	  
+	    	  while (fullCommand.hasNext()) {
+				  String next = fullCommand.next();
+				  if (server.getFunctions().contains(next)) {
+					  result = result + next;
+				  }
+			  }
+			  String sendall = "waitforclient";
+			  for (int i = 0; i < lobby.getPlayer().size(); i++){
+				  sendall = sendall + " " + lobby.getPlayer().get(i).getName();
+			  }
+			  server.sendAll(sendall);
 	     }
 	      scan.close();
 	      fullCommand.close();
