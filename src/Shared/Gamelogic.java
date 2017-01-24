@@ -24,7 +24,7 @@ public class Gamelogic {
         Player player1 = new Player("Barry");
         Player player2 = new Player("Henk");
         gamelogic.putPlayers(player1, player2);
-        gamelogic.putTile(60);
+        gamelogic.putTile(gamelogic.getPlayers().get(gamelogic.getTurn()).getTile(), 60);
     }
 
     public void putPlayers(Player player1, Player player2){
@@ -56,7 +56,7 @@ public class Gamelogic {
         return places;
     }
 
-    public void putTile(int place){
+    public void putTile(Tile tile, int place){
         if(place < 0 || place > 63){
             System.out.println("ERROR " + place + " is not in range");
         }
@@ -68,7 +68,7 @@ public class Gamelogic {
         }
         else{
             Player player = players.get(getTurn());
-            board.putTile(player.getTile(), place);
+            board.putTile(tile, place);
             player.minusOne();
         }
 

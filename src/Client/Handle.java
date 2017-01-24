@@ -1,5 +1,7 @@
 package Client;
 
+import Shared.Tile;
+
 import java.util.Scanner;
 
 /**
@@ -63,10 +65,20 @@ public class Handle {
             }
             if (command.equals("notifymove")) {
                 String name = fullCommand.next();
+                Tile tile = client.getPlayer().getTile();
+                if(!client.getPlayer().getName().equals(name)){
+                    if(tile == Tile.RED){
+                        tile = Tile.YELLOW;
+                    }
+                    else{
+                        tile = Tile.RED;
+                    }
+                }
+
                 String xas = fullCommand.next();
                 String zas = fullCommand.next();
                 String yas = fullCommand.next();
-                client.getGamelogic().putTile(client.getBoard().coordToInt(new Integer(xas), new Integer(yas), new Integer(zas)));
+                client.getGamelogic().putTile(tile, client.getBoard().coordToInt(new Integer(xas), new Integer(yas), new Integer(zas)));
                 System.out.println(name + " has done the following move: " + xas + "," + zas + "," + yas);
             }
             if (command.equals("gameover")) {

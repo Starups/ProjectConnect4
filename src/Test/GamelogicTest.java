@@ -61,7 +61,7 @@ public class GamelogicTest {
 
         assertEquals(available, gamelogic.availablePuts());
 
-        gamelogic.putTile(0);
+        gamelogic.putTile(Tile.RED, 0);
 
         available.clear();
         for(int i = 1; i < 17; i++){
@@ -70,10 +70,9 @@ public class GamelogicTest {
 
         assertEquals(available, gamelogic.availablePuts());
 
-        gamelogic.putTile(16);
-        gamelogic.putTile(32);
-        gamelogic.nextTurn();
-        gamelogic.putTile(48);
+        gamelogic.putTile(Tile.RED, 16);
+        gamelogic.putTile(Tile.RED, 32);
+        gamelogic.putTile(Tile.YELLOW, 48);
 
         available.clear();
         for(int i = 1; i < 16; i++){
@@ -85,12 +84,11 @@ public class GamelogicTest {
 
     @Test
     public void putTileTest(){
-        gamelogic.putTile(0);
+        gamelogic.putTile(Tile.RED, 0);
 
         assertEquals(board.getTile(0), Tile.RED);
 
-        gamelogic.nextTurn();
-        gamelogic.putTile(1);
+        gamelogic.putTile(Tile.YELLOW, 1);
 
         assertEquals(board.getTile(1), Tile.YELLOW);
     }
@@ -110,10 +108,10 @@ public class GamelogicTest {
 
         assertFalse(gamelogic.gameEndxas());
 
-        gamelogic.putTile(4);
-        gamelogic.putTile(5);
-        gamelogic.putTile(6);
-        gamelogic.putTile(7);
+        gamelogic.putTile(Tile.RED, 4);
+        gamelogic.putTile(Tile.RED, 5);
+        gamelogic.putTile(Tile.RED, 6);
+        gamelogic.putTile(Tile.RED, 7);
 
         assertTrue(gamelogic.gameEndxas());
     }
@@ -124,10 +122,10 @@ public class GamelogicTest {
 
         assertFalse(gamelogic.gameEndyas());
 
-        gamelogic.putTile(1);
-        gamelogic.putTile(5);
-        gamelogic.putTile(9);
-        gamelogic.putTile(13);
+        gamelogic.putTile(Tile.RED, 1);
+        gamelogic.putTile(Tile.RED, 5);
+        gamelogic.putTile(Tile.RED, 9);
+        gamelogic.putTile(Tile.RED, 13);
 
         assertTrue(gamelogic.gameEndyas());
     }
@@ -138,10 +136,10 @@ public class GamelogicTest {
 
         assertFalse(gamelogic.gameEndzas());
 
-        gamelogic.putTile(1);
-        gamelogic.putTile(17);
-        gamelogic.putTile(33);
-        gamelogic.putTile(49);
+        gamelogic.putTile(Tile.RED, 1);
+        gamelogic.putTile(Tile.RED, 17);
+        gamelogic.putTile(Tile.RED, 33);
+        gamelogic.putTile(Tile.RED, 49);
 
         assertTrue(gamelogic.gameEndzas());
     }
@@ -152,10 +150,10 @@ public class GamelogicTest {
 
         assertFalse(gamelogic.gameEndxyas());
 
-        gamelogic.putTile(0);
-        gamelogic.putTile(5);
-        gamelogic.putTile(10);
-        gamelogic.putTile(15);
+        gamelogic.putTile(Tile.RED, 0);
+        gamelogic.putTile(Tile.RED, 5);
+        gamelogic.putTile(Tile.RED, 10);
+        gamelogic.putTile(Tile.RED, 15);
 
         assertTrue(gamelogic.gameEndxyas());
     }
@@ -166,19 +164,17 @@ public class GamelogicTest {
 
         assertFalse(gamelogic.gameEndxzas());
 
-        gamelogic.putTile(1);
-        gamelogic.putTile(2);
-        gamelogic.putTile(18);
-        gamelogic.putTile(3);
-        gamelogic.putTile(19);
-        gamelogic.putTile(35);
+        gamelogic.putTile(Tile.RED, 1);
+        gamelogic.putTile(Tile.RED, 2);
+        gamelogic.putTile(Tile.RED, 18);
+        gamelogic.putTile(Tile.RED, 3);
+        gamelogic.putTile(Tile.RED, 19);
+        gamelogic.putTile(Tile.RED, 35);
 
-        gamelogic.nextTurn();
-
-        gamelogic.putTile(0);
-        gamelogic.putTile(17);
-        gamelogic.putTile(34);
-        gamelogic.putTile(51);
+        gamelogic.putTile(Tile.YELLOW, 0);
+        gamelogic.putTile(Tile.YELLOW, 17);
+        gamelogic.putTile(Tile.YELLOW, 34);
+        gamelogic.putTile(Tile.YELLOW, 51);
 
         assertTrue(gamelogic.gameEndxzas());
     }
@@ -189,19 +185,17 @@ public class GamelogicTest {
 
         assertFalse(gamelogic.gameEndyzas());
 
-        gamelogic.putTile(4);
-        gamelogic.putTile(8);
-        gamelogic.putTile(24);
-        gamelogic.putTile(12);
-        gamelogic.putTile(28);
-        gamelogic.putTile(44);
+        gamelogic.putTile(Tile.RED, 4);
+        gamelogic.putTile(Tile.RED, 8);
+        gamelogic.putTile(Tile.RED, 24);
+        gamelogic.putTile(Tile.RED, 12);
+        gamelogic.putTile(Tile.RED, 28);
+        gamelogic.putTile(Tile.RED, 44);
 
-        gamelogic.nextTurn();
-
-        gamelogic.putTile(0);
-        gamelogic.putTile(20);
-        gamelogic.putTile(40);
-        gamelogic.putTile(60);
+        gamelogic.putTile(Tile.YELLOW, 0);
+        gamelogic.putTile(Tile.YELLOW, 20);
+        gamelogic.putTile(Tile.YELLOW, 40);
+        gamelogic.putTile(Tile.YELLOW, 60);
 
         assertTrue(gamelogic.gameEndyzas());
     }
@@ -212,19 +206,17 @@ public class GamelogicTest {
 
         assertFalse(gamelogic.gameEndxyzas());
 
-        gamelogic.putTile(5);
-        gamelogic.putTile(10);
-        gamelogic.putTile(26);
-        gamelogic.putTile(15);
-        gamelogic.putTile(31);
-        gamelogic.putTile(47);
+        gamelogic.putTile(Tile.RED, 5);
+        gamelogic.putTile(Tile.RED, 10);
+        gamelogic.putTile(Tile.RED, 26);
+        gamelogic.putTile(Tile.RED, 15);
+        gamelogic.putTile(Tile.RED, 31);
+        gamelogic.putTile(Tile.RED, 47);
 
-        gamelogic.nextTurn();
-
-        gamelogic.putTile(0);
-        gamelogic.putTile(21);
-        gamelogic.putTile(42);
-        gamelogic.putTile(63);
+        gamelogic.putTile(Tile.YELLOW, 0);
+        gamelogic.putTile(Tile.YELLOW, 21);
+        gamelogic.putTile(Tile.YELLOW, 42);
+        gamelogic.putTile(Tile.YELLOW, 63);
 
         assertTrue(gamelogic.gameEndxyzas());
     }
