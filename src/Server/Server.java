@@ -17,10 +17,14 @@ import Shared.*;
 public class Server extends Thread{
 	
 	ServerSocket server = null;
-	Peer peer;
+	private Peer peer;
+	private Board board;
+	private Gamelogic gamelogic;
 	private String functions = "";
+	private Lobby lobby;
 	
 	public Server() {
+		lobby = new Lobby();
 		Start();
 	}
 	
@@ -36,6 +40,9 @@ public class Server extends Thread{
 		          port = input.nextLine();
 			}
 		          server = new ServerSocket(new Integer(port));
+		          board = new Board();
+		          gamelogic = new Gamelogic(board);
+		          
 		        
 		          System.out.println(
 		                "Waiting for client on port " + port + " with IP-adress: " 
@@ -43,6 +50,7 @@ public class Server extends Thread{
 		          Connection connection = new Connection(this, server);
 		          Thread connectionThread = new Thread(connection);
 		          connectionThread.start();
+		          
 		          input.close();
 		} catch (Exception e) {
 	        System.out.println("Error while trying to make a server, Try another port"+ e);
@@ -61,6 +69,10 @@ public class Server extends Thread{
 		  }
 	  public String getFunctions() {
 		  return functions;
+	  }
+	  
+	  public Gamelogic getGamelogic() {
+		  return gamelogic;
 	  }
 	  public void connection(Peer peer, Socket socket) {
 		    try {
