@@ -14,6 +14,7 @@ public class Player {
     public Player(String name, Connection connection){
         setAmountTiles(32);
         this.name = name;
+        this.connection = connection;
     }
 
     public Player(String name){

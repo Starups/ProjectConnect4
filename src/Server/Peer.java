@@ -47,8 +47,7 @@ public class Peer {
 	    	          }
 	    	    }
 	    	    String sendall = "waitforclient"; {
-	    	          sendall = sendall + " " + lobby.getPlayer().get(0);
-
+					sendall = sendall + " " + lobby.getPlayer().get(0).getName();
 	    	    }
 	    	    server.sendAll(sendall);
 	    	  

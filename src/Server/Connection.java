@@ -12,14 +12,12 @@ import Shared.*;
 
 public class Connection extends Thread {
 	Server server;
-	  ServerSocket serversock;
-	  Gamelogic gamelogic;
-	  Board board;
-	  String clientMessage = "";
-	  Socket connection;
-	  PrintWriter out;
-	  BufferedReader inputStream;
-	  Peer peer;
+	ServerSocket serversock;
+	String clientMessage = "";
+	Socket connection;
+	PrintWriter out;
+	BufferedReader inputStream;
+	Peer peer;
 	
 	public Connection(Server server, ServerSocket serversock) {
 		this.server = server;
@@ -31,7 +29,6 @@ public class Connection extends Thread {
 		  try {
 		      
 		      while (true) {
-		    	  
 		        Socket socket = serversock.accept();
 		        ConnectionThread connectionThread = new ConnectionThread(socket, server, out,inputStream, this);
 		        connectionThread.start();
@@ -56,7 +53,7 @@ public class Connection extends Thread {
 	          System.out.println("clientMessage: " + clientMessage);
 	          String handledCommand = peer.handleCommand(clientMessage, this);
 	          
-	          if (handledCommand == "gameover") {
+	          if (handledCommand.equals("gameover")) {
 	            this.close(connection);
 	          }
 	          write(handledCommand, new PrintWriter(connection.getOutputStream()));
@@ -79,9 +76,11 @@ public class Connection extends Thread {
 	public Server getServer() {
 		    return server;
 		  }
+
 	public PrintWriter getOut() {
 		return out;
 	}
+
 	public void close(Socket connection) {
 	    try {
 	      connection.close();

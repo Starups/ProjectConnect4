@@ -17,14 +17,16 @@ import Shared.*;
 public class Server extends Thread{
 	
 	ServerSocket server = null;
-	private Peer peer;
-	private Player player;
 	private Board board;
 	private Gamelogic gamelogic;
 	private String functions = "";
 	private Lobby lobby;
 	private Connection connection;
-	
+
+	public static void main(String[] args) {
+		new Server();
+	}
+
 	public Server() {
 		lobby = new Lobby();
 		Start();
@@ -42,8 +44,6 @@ public class Server extends Thread{
 		          port = input.nextLine();
 			}
 		          server = new ServerSocket(new Integer(port));
-		          board = new Board();
-		          gamelogic = new Gamelogic(board);
 		        
 		          System.out.println(
 		                "Waiting for client on port " + port + " with IP-adress: " 
@@ -59,46 +59,44 @@ public class Server extends Thread{
 	    }
 	    input.close();
 	  }
-	
-	
-	public static void main(String[] args) {
-	    new Server();
-	  }
-	
-	  public Peer getPeer() {
-		    return peer;
-		  }
-	  public String getFunctions() {
-		  return functions;
-	  }
-	  
-	  public Lobby getLobby() {
-		  return lobby;
-	  }
-	  
-	  public void sendAll(String msg) {
-		    System.out.println("sendAll: " + msg);
-		    for (int p = 0; p < lobby.getPlayer().size(); p++) {
-		      connection.write(
-		         msg, lobby.getPlayer().get(p).getConnection().getOut());
-		    }
-	  }
-	  
-	  public Gamelogic getGamelogic() {
-		  return gamelogic;
-	  }
-	  public void connection(Peer peer, Socket socket) {
-		    try {
-		      System.out.println("Client connected: " + socket);
-		      PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-		      BufferedReader inputStream = new BufferedReader(
-		          new InputStreamReader(socket.getInputStream()));
-		      Connection connection = new Connection(this, server);
-		      connection.read(socket, peer, out, inputStream);
-		    } catch (IOException e) {
-		      e.printStackTrace();
-		    }
-		  }
 
+	public String getFunctions() {
+		return functions;
+	}
+	  
+	public Lobby getLobby() {
+		return lobby;
+	}
+	  
+	public void sendAll(String msg) {
+	    System.out.println("sendAll: " + msg);
+		lobby.getPlayer().get(0).getConnection().write(msg, lobby.getPlayer().get(0).getConnection().getOut());
+	}
+	  
+	public Gamelogic getGamelogic() {
+		return gamelogic;
+	}
 
+	public void connection(Peer peer, Socket socket) {
+	    try {
+	    	System.out.println("Client connected: " + socket);
+	    	PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+		    BufferedReader inputStream = new BufferedReader(
+					new InputStreamReader(socket.getInputStream()));
+			connection = new Connection(this, server);
+		    connection.read(socket, peer, out, inputStream);
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+	}
+
+	public void startGame(){
+		board = new Board();
+		gamelogic = new Gamelogic(board);
+		Player player1 = lobby.getPlayer().get(0);
+		player1.setTile(Tile.RED);
+		Player player2 = lobby.getPlayer().get(1);
+		player2.setTile(Tile.YELLOW);
+		gamelogic.putPlayers(player1, player2);
+	}
 }
