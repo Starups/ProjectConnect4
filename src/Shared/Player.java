@@ -31,4 +31,8 @@ public class Player {
     public Tile getTile(){
         return tile;
     }
+
+    public String getName(){
+        return name;
+    }
 }

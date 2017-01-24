@@ -9,14 +9,14 @@ import java.net.Socket;
 /**
  * Created by Stan on 23-1-2017.
  */
-public class ServerCommunication extends Thread{
+public class ServerCommunication extends Thread {
     String ip;
     int portNumber;
     Handle handle;
     Socket socket;
     PrintWriter out;
 
-    public ServerCommunication(String ip, int portNumber, Handle handle){
+    public ServerCommunication(String ip, int portNumber, Handle handle) {
         this.ip = ip;
         this.portNumber = portNumber;
         this.handle = handle;
@@ -26,7 +26,7 @@ public class ServerCommunication extends Thread{
             out = new PrintWriter(socket.getOutputStream(), true);
             System.out.println("Connecting Socket " + ip + ":" + portNumber);
         } catch (IOException e) {
-            System.out.println("Failed to connect");
+            System.out.println("Failed to connect: " + e);
         }
     }
 
@@ -56,6 +56,14 @@ public class ServerCommunication extends Thread{
                 }
             }
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void close() {
+        try {
+            socket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

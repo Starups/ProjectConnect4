@@ -57,17 +57,20 @@ public class Client {
         if (sc.socket != null) {
             scThread = new Thread(sc);
             scThread.start();
-            sc.write("joinrequest " + name + "0 0 0 0");
+            sc.write("joinrequest " + name + " 0 0 0 0");
+            System.out.println("joinrequest " + name + " 0 0 0 0 has been written.");
         }
-        System.out.println("Joinrequest has been sended.");
+
+        while (true) {
+            String typedMessage = in.nextLine();
+            sc.write(typedMessage);
+        }
     }
 
     public void startGame(){
         board = new Board();
         gamelogic = new Gamelogic(board);
-    }
-
-    public void makePlayer(){
         player = new Player(name);
+        gamelogic.putPlayers(player, new Player("Opponent"));
     }
 }

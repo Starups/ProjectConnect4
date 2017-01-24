@@ -23,10 +23,9 @@ public class Handle {
             command = command.replace("", ""); //To fix a weird bug where it would place 's in front of messages from the server
             if (command.equals("acceptrequest")) {
                 System.out.println("The server has accepted the connection.");
-                client.makePlayer();
             }
             if (command.equals("denyrequest")) {
-                System.out.println("This name has already been chosen.");
+                System.out.println("This name has already been chosen. Reconnect with a new name.");
             }
             if (command.equals("waitforclient")) {
                 System.out.println("Waiting for your opponent.");
@@ -45,7 +44,9 @@ public class Handle {
                 System.out.println("The following move has been done:");
             }
             if (command.equals("gameover")) {
-                System.out.println("Game over");
+                String name = fullCommand.next();
+
+                System.out.println(name + " has won the game!");
             }
             if (command.equals("connectionlost")) {
                 System.out.println("The connection has been lost");
