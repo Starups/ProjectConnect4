@@ -10,6 +10,7 @@ import java.util.Scanner;
  */
 public class Client {
     private Player player;
+    private Player opponent;
     private Handle handle;
     private ServerCommunication sc = null;
     private Thread scThread = null;
@@ -42,13 +43,13 @@ public class Client {
         }
         port = new Integer(portEntry);
         System.out.println("port: " + port);
-        System.out.println("Playing alias:");
+        System.out.println("User name:");
         name = in.nextLine();
         while (name.equals("")) {
             System.out.println("Re-enter name: ");
             name = in.nextLine();
         }
-        System.out.println("Playing alias: " + name);
+        System.out.println("User name: " + name);
 
         player = new Player(name);
         handle = new Handle(this);
@@ -67,10 +68,31 @@ public class Client {
         }
     }
 
-    public void startGame(){
+    public void startGame(String color){
         board = new Board();
         gamelogic = new Gamelogic(board);
         player = new Player(name);
+        opponent = new Player("Opponent");
+        if(color.equals("Red")){
+            player.setTile(Tile.RED);
+            opponent.setTile(Tile.YELLOW);
+        }
+        else{
+            player.setTile(Tile.YELLOW);
+            opponent.setTile(Tile.RED);
+        }
         gamelogic.putPlayers(player, new Player("Opponent"));
+    }
+
+    public Player getPlayer(){
+        return player;
+    }
+
+    public Gamelogic getGamelogic(){
+        return gamelogic;
+    }
+
+    public Board getBoard(){
+        return board;
     }
 }
