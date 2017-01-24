@@ -1,5 +1,7 @@
 package Shared;
 
+import Server.Connection;
+
 /**
  * Created by Stan on 25-12-2016.
  */
@@ -7,8 +9,9 @@ public class Player {
     private int amountTiles;
     private Tile tile;
     private String name;
+    private Connection connection;
 
-    public Player(String name){
+    public Player(String name, Connection connection){
         setAmountTiles(32);
         this.name = name;
     }
@@ -16,6 +19,7 @@ public class Player {
     public void setTile(Tile tile){
         this.tile = tile;
     }
+
     public void setAmountTiles(int amount){
         amountTiles = amount;
     }
@@ -34,5 +38,9 @@ public class Player {
 
     public String getName(){
         return name;
+    }
+
+    public Connection getConnection(){
+        return connection;
     }
 }
