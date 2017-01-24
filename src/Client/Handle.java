@@ -8,6 +8,21 @@ import java.util.Scanner;
 public class Handle {
     Client client;
 
+    public static void main(String[] args) {
+        Client client = new Client();
+        Handle handle = new Handle(client);
+        handle.handleCommand("acceptrequest");
+        handle.handleCommand("denyrequest");
+        handle.handleCommand("waitforclient");
+        handle.handleCommand("moverequest");
+        handle.handleCommand("denymove");
+        handle.handleCommand("notifymove henk 1 1 0");
+        handle.handleCommand("gameover hebk");
+        handle.handleCommand("connectionlost");
+        handle.handleCommand("invalidcommand");
+
+    }
+
     public Handle(Client client){
         this.client = client;
     }
@@ -32,24 +47,39 @@ public class Handle {
             }
             if (command.equals("startgame")) {
                 System.out.println("A new game will be started.");
-                client.startGame();
+                System.out.println("What color would you like to be?");
+                Scanner in = new Scanner(System.in);
+                String color = in.nextLine();
+                while(!color.equals("Red") && !color.equals("Yellow")){
+                    System.out.println("The color has to be: 'Red' or 'Yellow'");
+                }
+                client.startGame(color);
             }
             if (command.equals("moverequest")) {
                 System.out.println("Please send your move.");
             }
             if (command.equals("denymove")) {
-                System.out.println("This move is not allowed.");
+                System.out.println("This move is not allowed. Please send an allowed move.");
             }
             if (command.equals("notifymove")) {
-                System.out.println("The following move has been done:");
+                String name = fullCommand.next();
+                String xas = fullCommand.next();
+                String zas = fullCommand.next();
+                String yas = fullCommand.next();
+                client.getGamelogic().putTile(client.getBoard().coordToInt(new Integer(xas), new Integer(yas), new Integer(zas)));
+                System.out.println(name + " has done the following move: " + xas + "," + zas + "," + yas);
             }
             if (command.equals("gameover")) {
                 String name = fullCommand.next();
-
-                System.out.println(name + " has won the game!");
+                if(name.equals(client.getPlayer().getName())){
+                    System.out.println("Congratulations! You have won the game!");
+                }
+                else{
+                    System.out.println("Unlucky! You have lost the game!");
+                }
             }
             if (command.equals("connectionlost")) {
-                System.out.println("The connection has been lost");
+                System.out.println("The connection has been lost with your opponent");
             }
             if (command.equals("invalidcommand")) {
                 System.out.println("This command is not valid");
