@@ -1,17 +1,20 @@
 package Server;
 
 import java.util.List;
+
+import Shared.Player;
+
 import java.util.ArrayList;
 
 public class Lobby {
-	//TODO putplayer getplayer arraylist
-	private List<String> players = new ArrayList<String>();
+	
+	private List<Player> players = new ArrayList<Player>();
 
-	public void putPlayer(String name){
+	public void putPlayer(Player name){
 		players.add(name);
 	}
 
-	public List<String> getPlayer(){
+	public List<Player> getPlayer(){
 		return players;
 	}
 

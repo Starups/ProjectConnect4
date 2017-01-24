@@ -79,6 +79,9 @@ public class Connection extends Thread {
 	public Server getServer() {
 		    return server;
 		  }
+	public PrintWriter getOut() {
+		return out;
+	}
 	public void close(Socket connection) {
 	    try {
 	      connection.close();

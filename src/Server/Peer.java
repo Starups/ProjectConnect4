@@ -8,10 +8,11 @@ import java.util.List;
 import Shared.*;
 
 public class Peer {
-	Board board;
-	Player player;
-	Gamelogic gamelogic;
-	Server server;
+	private Board board;
+	private Player player;
+	private Gamelogic gamelogic;
+	private Server server;
+	private Lobby lobby;
 	int queuesize = 2;
 	
 
@@ -20,7 +21,7 @@ public class Peer {
 		this.gamelogic = gamelogic;
 		this.board = board;
 		this.server = server;
-		
+		lobby = server.getLobby();
 	}
 
 	 
@@ -35,9 +36,10 @@ public class Peer {
 	      String command = fullCommand.next();
 
 	      if (command.equals("joinrequest")) {
-	    	  this.player = new Player(fullCommand.next());
-	    	  
-	    	  result = "acceptrequest";
+	    	  String name = fullCommand.next();
+	    	  this.player = new Player(name, connection);
+		      lobby.putPlayer(player);
+		      result = "acceptrequest";
 	    	    while (fullCommand.hasNext()) {
 	    	          String next = fullCommand.next();
 	    	          if (server.getFunctions().contains(next)) {
@@ -45,10 +47,10 @@ public class Peer {
 	    	          }
 	    	    }
 	    	    String sendall = "waitforclient"; {
-	    	          sendall = sendall + " " + gamelogic.getPlayers().get(0).getName();
-	    	          sendall = sendall + " " + gamelogic.getPlayers().get(1).getName();
+	    	          sendall = sendall + " " + lobby.getPlayer().get(0);
 
 	    	    }
+	    	    server.sendAll(sendall);
 	    	  
 	     }
 	      scan.close();

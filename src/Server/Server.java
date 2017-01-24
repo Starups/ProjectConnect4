@@ -18,10 +18,12 @@ public class Server extends Thread{
 	
 	ServerSocket server = null;
 	private Peer peer;
+	private Player player;
 	private Board board;
 	private Gamelogic gamelogic;
 	private String functions = "";
 	private Lobby lobby;
+	private Connection connection;
 	
 	public Server() {
 		lobby = new Lobby();
@@ -42,12 +44,11 @@ public class Server extends Thread{
 		          server = new ServerSocket(new Integer(port));
 		          board = new Board();
 		          gamelogic = new Gamelogic(board);
-		          
 		        
 		          System.out.println(
 		                "Waiting for client on port " + port + " with IP-adress: " 
 		                      + Inet4Address.getLocalHost().getHostAddress());
-		          Connection connection = new Connection(this, server);
+		          connection = new Connection(this, server);
 		          Thread connectionThread = new Thread(connection);
 		          connectionThread.start();
 		          
@@ -69,6 +70,18 @@ public class Server extends Thread{
 		  }
 	  public String getFunctions() {
 		  return functions;
+	  }
+	  
+	  public Lobby getLobby() {
+		  return lobby;
+	  }
+	  
+	  public void sendAll(String msg) {
+		    System.out.println("sendAll: " + msg);
+		    for (int p = 0; p < lobby.getPlayer().size(); p++) {
+		      connection.write(
+		         msg, lobby.getPlayer().get(p).getConnection().getOut());
+		    }
 	  }
 	  
 	  public Gamelogic getGamelogic() {
