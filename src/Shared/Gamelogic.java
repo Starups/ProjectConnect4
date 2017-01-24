@@ -18,15 +18,6 @@ public class Gamelogic {
         this.board = board;
     }
 
-    public static void main(String[] args){
-        Board board = new Board();
-        Gamelogic gamelogic = new Gamelogic(board);
-        Player player1 = new Player("Barry");
-        Player player2 = new Player("Henk");
-        gamelogic.putPlayers(player1, player2);
-        gamelogic.putTile(gamelogic.getPlayers().get(gamelogic.getTurn()).getTile(), 60);
-    }
-
     public void putPlayers(Player player1, Player player2){
         players.put(0, player1);
         players.put(1, player2);

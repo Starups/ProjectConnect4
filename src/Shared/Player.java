@@ -16,6 +16,11 @@ public class Player {
         this.name = name;
     }
 
+    public Player(String name){
+        setAmountTiles(32);
+        this.name = name;
+    }
+
     public void setTile(Tile tile){
         this.tile = tile;
     }
