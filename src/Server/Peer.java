@@ -127,6 +127,16 @@ public class Peer {
 	    	  }
 	      }
 	      
+	      boolean playerConnection = false;
+    	  for(int i = 0; i < lobby.getPlayer().size(); i++) {
+    		  if (server.getGamelogic().getPlayers().get(i).getConnection().isAlive()) {
+    			  playerConnection = true;
+    		  }
+    		  if (!playerConnection) {
+    			  result = "connectionlost";
+    		  }
+    	  }
+	      
 	      scan.close();
 	      fullCommand.close();
 	      return result;
