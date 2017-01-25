@@ -70,7 +70,14 @@ public class Server extends Thread{
 	  
 	public void sendAll(String msg) {
 	    System.out.println("sendAll: " + msg);
-		lobby.getPlayer().get(0).getConnection().write(msg, lobby.getPlayer().get(0).getConnection().getOut());
+	    for(int i = 0; i < lobby.getPlayer().size(); i++){
+			lobby.getPlayer().get(i).getConnection().write(msg, lobby.getPlayer().get(i).getConnection().getOut());
+	    }
+	}
+	
+	public void sendPlayer(Player player, String msg){
+		System.out.print("Send to " + player.getName() + ": " + msg);
+		player.getConnection().write(msg, player.getConnection().getOut());
 	}
 	  
 	public Gamelogic getGamelogic() {

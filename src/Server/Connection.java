@@ -18,6 +18,8 @@ public class Connection extends Thread {
 	PrintWriter out;
 	BufferedReader inputStream;
 	Peer peer;
+	Lobby lobby;
+	
 	
 	public Connection(Server server, ServerSocket serversock) {
 		this.server = server;
@@ -50,13 +52,13 @@ public class Connection extends Thread {
 	    try {
 	      while (!clientMessage.equals("Close")) {
 	        if (!clientMessage.equals("")) {
-	          System.out.println("clientMessage: " + clientMessage);
+	          System.out.println("clientMessage:" + clientMessage);
 	          String handledCommand = peer.handleCommand(clientMessage, this);
 	          
 	          if (handledCommand.equals("gameover")) {
 	            this.close(connection);
 	          }
-	          write(handledCommand, new PrintWriter(connection.getOutputStream()));
+	          write(handledCommand, out);
 	        }
 
 	        clientMessage = inputStream.readLine();

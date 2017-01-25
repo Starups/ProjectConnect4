@@ -37,21 +37,54 @@ public class Peer {
 
 	      if (command.equals("joinrequest")) {
 	    	  String name = fullCommand.next();
-	    	  this.player = new Player(name, connection);
-		      lobby.putPlayer(player);
-		      result = "acceptrequest";
-	    	  while (fullCommand.hasNext()) {
-				  String next = fullCommand.next();
-				  if (server.getFunctions().contains(next)) {
-					  result = result + next;
-				  }
-			  }
-			  String sendall = "waitforclient";
-			  for (int i = 0; i < lobby.getPlayer().size(); i++){
-				  sendall = sendall + " " + lobby.getPlayer().get(i).getName();
-			  }
-			  server.sendAll(sendall);
-	     }
+	    	  boolean bool = false;
+	    	  for(int i = 0; i < lobby.getPlayer().size(); i++){
+	    		  if(name.equals(lobby.getPlayer().get(i).getName())){
+	    			  bool = true;
+	    		  }
+	    	  }
+	    	  if(bool){
+	    		  result = "denyrequest";
+	    	  }
+	    	  else{
+		    	  this.player = new Player(name, connection);
+			      lobby.putPlayer(player);
+			      result = "acceptrequest";
+	    	  }
+	      }
+	      if(command.equals("gamerequest")) {
+	    	  if(lobby.getPlayer().size() == 1) {
+	      
+	    	    String sendall = "waitforclient"; 
+	    	    sendall = sendall + " " + lobby.getPlayer().get(0).getName();
+	    	    System.out.println(lobby.getPlayer().size());
+	    	    
+	    	    server.sendAll(sendall);
+	    	  } else { 
+	    	  server.startGame();
+	    	  String sendall = "startgame";
+	    	  server.sendAll(sendall);
+	    	  lobby.clearLobby();
+	    	  
+	    	  int turn;
+	    	  if(Math.random() < 0.5){
+	    		  turn = 0;
+	    	  }
+	    	  else {
+	    		  turn = 1;
+	    	  }
+	    	  server.getGamelogic().setTurn(turn);
+	    	  
+	    	  Player turnPlayer = server.getGamelogic().getPlayers().get(server.getGamelogic().getTurn());
+	    	  String sendplayer = "moverequest";
+	    	  server.sendPlayer(turnPlayer, sendplayer);
+	    	  
+	    	  }
+	    	  
+	      }
+	      
+	      if(command.equals("barryrequest"))
+	      
 	      scan.close();
 	      fullCommand.close();
 	      return result;
@@ -61,7 +94,4 @@ public class Peer {
 	      return result;
 	    }
 	  }
-	public void putPlayer(Player player){
-		gamelogic.putPlayers(player, null);
-	}
 }

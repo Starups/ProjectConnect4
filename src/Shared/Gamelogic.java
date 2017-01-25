@@ -27,6 +27,9 @@ public class Gamelogic {
         turn = (turn + 1) % players.size();
     }
 
+    public void setTurn(int turn){
+    	this.turn = turn;
+    }
 
     public int getTurn(){
         return turn;
