@@ -22,6 +22,7 @@ public class ServerCommunication extends Thread {
         this.handle = handle;
         try {
             socket = new Socket(ip, portNumber);
+
             System.out.println("Connected " + socket);
             out = new PrintWriter(socket.getOutputStream(), true);
             System.out.println("Connecting Socket " + ip + ":" + portNumber);

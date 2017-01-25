@@ -56,6 +56,7 @@ public class Handle {
                     System.out.println("The color has to be: 'Red' or 'Yellow'");
                 }
                 client.startGame(color);
+                System.out.println("You are " + client.getPlayer().getTile());
             }
             if (command.equals("moverequest")) {
                 System.out.println("Please send your move.");
@@ -89,6 +90,7 @@ public class Handle {
                 else{
                     System.out.println("Unlucky! You have lost the game!");
                 }
+                client.getSc().close();
             }
             if (command.equals("connectionlost")) {
                 System.out.println("The connection has been lost with your opponent");

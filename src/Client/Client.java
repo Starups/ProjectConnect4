@@ -94,4 +94,8 @@ public class Client {
     public Board getBoard(){
         return board;
     }
+
+    public ServerCommunication getSc(){
+        return sc;
+    }
 }
