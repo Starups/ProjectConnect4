@@ -5,5 +5,4 @@ package Shared;
  */
 public enum Tile {
     YELLOW, RED;
-
 }
