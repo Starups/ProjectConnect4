@@ -83,7 +83,14 @@ public class Peer {
 	    	  
 	      }
 	      
-	      if(command.equals("barryrequest"))
+	      if(command.equals("setmove")) {
+	    	  if(){
+	    		  
+	    	  }
+	    	  else {
+	    		  
+	    	  }
+	      }
 	      
 	      scan.close();
 	      fullCommand.close();
