@@ -86,10 +86,10 @@ public class Peer {
 	      if(command.equals("setmove")) {
 			  for(int i = 0; i < server.getGamelogic().getPlayers().size(); i++){
 				  if(connection == server.getGamelogic().getPlayers().get(i).getConnection()){
-					  player = gamelogic.getPlayers().get(i);
+					  player = server.getGamelogic().getPlayers().get(i);
 				  }
 				  else{
-					  opponent = gamelogic.getPlayers().get(i);
+					  opponent = server.getGamelogic().getPlayers().get(i);
 				  }
 			  }
 
@@ -127,8 +127,9 @@ public class Peer {
 	    	  }
 	      }
 	      
+	      if(lobby.getPlayer().size() == 0){
 	      boolean playerConnection = false;
-    	  for(int i = 0; i < lobby.getPlayer().size(); i++) {
+    	  for(int i = 0; i < server.getGamelogic().getPlayers().size(); i++) {
     		  if (server.getGamelogic().getPlayers().get(i).getConnection().isAlive()) {
     			  playerConnection = true;
     		  }
@@ -136,6 +137,7 @@ public class Peer {
     			  result = "connectionlost";
     		  }
     	  }
+	      }
 	      
 	      scan.close();
 	      fullCommand.close();

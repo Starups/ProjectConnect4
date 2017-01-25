@@ -70,8 +70,15 @@ public class Server extends Thread{
 	  
 	public void sendAll(String msg) {
 	    System.out.println("sendAll: " + msg);
-	    for(int i = 0; i < lobby.getPlayer().size(); i++){
-			lobby.getPlayer().get(i).getConnection().write(msg, lobby.getPlayer().get(i).getConnection().getOut());
+	    if(lobby.getPlayer().size() != 0){
+	    	for(int i = 0; i < lobby.getPlayer().size(); i++){
+				lobby.getPlayer().get(i).getConnection().write(msg, lobby.getPlayer().get(i).getConnection().getOut());
+		    }
+	    }
+	    else if (this.getGamelogic().getPlayers().size() != 0){
+	    	for(int i = 0; i < this.getGamelogic().getPlayers().size(); i++){
+				this.getGamelogic().getPlayers().get(i).getConnection().write(msg, this.getGamelogic().getPlayers().get(i).getConnection().getOut());
+		    }
 	    }
 	}
 	
