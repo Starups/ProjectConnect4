@@ -266,5 +266,7 @@ public class Gamelogic {
         return players;
     }
 
-	
+	public Board getBoard(){
+        return board;
+    }
 }
