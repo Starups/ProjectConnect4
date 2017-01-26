@@ -77,10 +77,11 @@ public class Handle {
                 }
 
                 String xas = fullCommand.next();
-                String zas = fullCommand.next();
                 String yas = fullCommand.next();
+                String zas = fullCommand.next();
                 client.getGamelogic().putTile(tile, client.getBoard().coordToInt(new Integer(xas), new Integer(yas), new Integer(zas)));
-                System.out.println(name + " has done the following move: " + xas + "," + zas + "," + yas);
+                System.out.println(name + " has done the following move: " + xas + "," + yas + "," + zas);
+                client.getBoard().printBoard();
             }
             if (command.equals("gameover")) {
                 String name = fullCommand.next();

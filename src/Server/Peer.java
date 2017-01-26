@@ -11,6 +11,7 @@ public class Peer {
 	private Board board;
 	private Player player;
 	private Player opponent;
+	private Player askmove;
 	private Gamelogic gamelogic;
 	private Server server;
 	private Lobby lobby;
@@ -76,9 +77,9 @@ public class Peer {
 	    	  server.getGamelogic().setTurn(turn);
 	    	  
 	    	  Player turnPlayer = server.getGamelogic().getPlayers().get(server.getGamelogic().getTurn());
-	    	  String sendplayer = "moverequest";
-	    	  server.sendPlayer(turnPlayer, sendplayer);
-	    	  
+	    	  String send = "moverequest";
+	    	  server.sendPlayer(turnPlayer, send);
+	    	  askmove = turnPlayer;
 	    	  }
 	    	  
 	      }
@@ -93,41 +94,54 @@ public class Peer {
 				  }
 			  }
 
-			  String xas = fullCommand.next();
-			  String yas = fullCommand.next();
-			  List<Integer> availablespaces = server.getGamelogic().availablePuts();
+			  System.out.println("Degene die het zend is: " + (player == askmove));
+			  if(player == askmove) {
+				  String xas = fullCommand.next();
+				  String yas = fullCommand.next();
+				  List<Integer> availablespaces = new ArrayList<Integer>();
+				  availablespaces = server.getGamelogic().availablePuts();
 
-			  boolean valid = false;
+				  boolean valid = false;
 
-			  int putplace = -1;
+				  int putplace = -1;
 
-			  for(int i = 0; i < availablespaces.size(); i++){
-				  if((i%16) == server.getGamelogic().getBoard().coordToInt(new Integer(xas), new Integer(yas), 0)){
-					  valid = true;
-					  putplace = i;
+				  for (int i : availablespaces) {
+					  int modulo = i % 16;
+					  if (modulo == server.getGamelogic().getBoard().coordToInt(new Integer(xas), new Integer(yas), 0)) {
+						  valid = true;
+						  putplace = i;
+						  System.out.println("Valid is set to: " + valid + " and putplace is set to: " + putplace);
+					  }
 				  }
+
+				  int zas = server.getGamelogic().getBoard().intToZCoord(putplace);
+
+				  System.out.println("Tweede if wordt: " + new Boolean(valid && putplace != -1));
+				  if (valid && putplace != -1) {
+					  server.getGamelogic().putTile(player.getTile(), putplace);
+					  server.sendAll("notifymove " + player.getName() + " " + xas + " " + yas + " " + zas);
+
+					  if (server.getGamelogic().gameEnd()) {
+						  if (server.getGamelogic().getWinningTile() == Tile.RED) {
+							  server.sendAll("gameover " + server.getGamelogic().getPlayers().get(0).getName());
+						  } else {
+							  server.sendAll("gameover " + server.getGamelogic().getPlayers().get(1).getName());
+						  }
+					  } else {
+						  server.sendPlayer(opponent, "moverequest");
+					  }
+				  } else {
+					  server.sendPlayer(player, "denymove");
+					  server.sendPlayer(player, "moverequest");
+				  }
+				  server.getGamelogic().getBoard().printBoard();
 			  }
-
-			  int zas = server.getGamelogic().getBoard().intToZCoord(putplace);
-
-			  if(valid && putplace != -1){
-	    		  server.getGamelogic().putTile(player.getTile(), putplace);
-				  server.sendAll("notifymove " + player.getName() + " " + xas + " " + yas + " " + zas);
-
-				  if(server.getGamelogic().gameEnd()){
-					  server.sendAll("gameover");
-				  }
-				  else{
-					  server.sendPlayer(opponent, "moverequest");
-				  }
-	    	  }
-	    	  else {
+			  else{
 				  server.sendPlayer(player, "denymove");
-				  server.sendPlayer(player, "moverequest");
-	    	  }
-	      }
+			  }
+		  }
 	      
-	      if(lobby.getPlayer().size() == 0){
+	      /*if(lobby.getPlayer().size() == 0){
 	      boolean playerConnection = false;
     	  for(int i = 0; i < server.getGamelogic().getPlayers().size(); i++) {
     		  if (server.getGamelogic().getPlayers().get(i).getConnection().isAlive()) {
@@ -137,7 +151,7 @@ public class Peer {
     			  result = "connectionlost";
     		  }
     	  }
-	      }
+	      }*/
 	      
 	      scan.close();
 	      fullCommand.close();

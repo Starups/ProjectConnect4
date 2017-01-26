@@ -13,6 +13,7 @@ public class Gamelogic {
     private int turn;
     private Map<Integer, Player> players = new HashMap<Integer, Player>();
     private Board board;
+    private Tile tile;
 
     public Gamelogic(Board board){
         this.board = board;
@@ -96,6 +97,7 @@ public class Gamelogic {
             if(board.getTile(x*4) != null && board.getTile(x*4 + 1) != null && board.getTile(x*4 + 2) != null && board.getTile(x*4 + 3) != null){
                 if(board.getTile(x*4).equals(board.getTile(x*4 + 1)) && board.getTile(x*4).equals(board.getTile(x*4 + 2)) && board.getTile(x*4).equals(board.getTile(x*4 + 3))){
                     bool = true;
+                    tile = board.getTile(x*4);
                 }
             }
 
@@ -116,6 +118,7 @@ public class Gamelogic {
                 if(board.getTile(y) != null && board.getTile(y + 4) != null && board.getTile(y + 8) != null && board.getTile(y + 12) != null){
                     if(board.getTile(y).equals(board.getTile(y + 4)) && board.getTile(y).equals(board.getTile(y + 8)) && board.getTile(y).equals(board.getTile(y + 12))){
                         bool = true;
+                        tile = board.getTile(y);
                     }
                 }
             }
@@ -123,6 +126,7 @@ public class Gamelogic {
                 if(board.getTile(y + 12) != null && board.getTile(y + 16) != null && board.getTile(y + 20) != null && board.getTile(y + 24) != null) {
                     if (board.getTile(y + 12).equals(board.getTile(y + 16)) && board.getTile(y + 12).equals(board.getTile(y + 20)) && board.getTile(y + 12).equals(board.getTile(y + 24))) {
                         bool = true;
+                        tile = board.getTile(y + 12);
                     }
                 }
             }
@@ -130,6 +134,7 @@ public class Gamelogic {
                 if(board.getTile(y + 24) != null && board.getTile(y + 28) != null && board.getTile(y + 32) != null && board.getTile(y + 36) != null){
                     if(board.getTile(y + 24).equals(board.getTile(y + 28)) && board.getTile(y + 24).equals(board.getTile(y + 32)) && board.getTile(y + 24).equals(board.getTile(y + 36))){
                         bool = true;
+                        tile = board.getTile(y + 24);
                     }
                 }
             }
@@ -137,6 +142,7 @@ public class Gamelogic {
                 if(board.getTile(y + 36) != null && board.getTile(y + 40) != null && board.getTile(y + 44) != null && board.getTile(y + 48) != null){
                     if(board.getTile(y + 36).equals(board.getTile(y + 40)) && board.getTile(y + 36).equals(board.getTile(y + 44)) && board.getTile(y + 36).equals(board.getTile(y + 48))) {
                         bool = true;
+                        tile = board.getTile(y + 36);
                     }
                 }
             }
@@ -157,6 +163,7 @@ public class Gamelogic {
             if(board.getTile(z) != null && board.getTile(z + 16) != null && board.getTile(z + 32) != null && board.getTile(z + 48) != null){
                 if(board.getTile(z).equals(board.getTile(z + 16)) && board.getTile(z).equals(board.getTile(z + 32)) && board.getTile(z).equals(board.getTile(z + 48))){
                     bool = true;
+                    tile = board.getTile(z);
                 }
             }
 
@@ -176,12 +183,14 @@ public class Gamelogic {
             if(board.getTile(x*16) != null && board.getTile(x*16 + 5) != null && board.getTile(x*16 + 10) != null && board.getTile(x*16 + 15) != null){
                 if(board.getTile(x*16).equals(board.getTile(x*16 + 5)) && board.getTile(x*16).equals(board.getTile(x*16 + 10)) && board.getTile(x*16).equals(board.getTile(x*16 + 15))){
                     bool = true;
+                    tile = board.getTile(x*16);
                 }
             }
 
             if(board.getTile(x*16 + 3) != null && board.getTile(x*16 + 6) != null && board.getTile(x*16 + 9) != null && board.getTile(x*16 + 12) != null) {
                 if(board.getTile(x*16 + 3).equals(board.getTile(x*16 + 6)) && board.getTile(x*16 + 3).equals(board.getTile(x*16 + 9)) && board.getTile(x*16 + 3).equals(board.getTile(x*16 + 12))){
                     bool = true;
+                    tile = board.getTile(x*16 + 3);
                 }
             }
 
@@ -201,12 +210,14 @@ public class Gamelogic {
             if(board.getTile(x*4) != null && board.getTile(x*4 + 17) != null && board.getTile(x*4 + 34) != null && board.getTile(x*4 + 51) != null){
                 if(board.getTile(x*4).equals(board.getTile(x*4 + 17)) && board.getTile(x*4).equals(board.getTile(x*4 + 34)) && board.getTile(x*4).equals(board.getTile(x*4 + 51))){
                     bool = true;
+                    tile = board.getTile(x*4);
                 }
             }
 
             if(board.getTile(x*4 + 3) != null && board.getTile(x*4 + 15) != null && board.getTile(x*4 + 30) != null && board.getTile(x*4 + 45) != null){
                 if(board.getTile(x*4 + 3).equals(board.getTile(x*4 + 15)) && board.getTile(x*4).equals(board.getTile(x*4 + 30)) && board.getTile(x*4).equals(board.getTile(x*4 + 45))){
                     bool = true;
+                    tile = board.getTile(x*4 + 3);
                 }
             }
 
@@ -226,12 +237,14 @@ public class Gamelogic {
             if(board.getTile(y) != null && board.getTile(y + 20) != null && board.getTile(y + 40) != null && board.getTile(y + 60) != null){
                 if(board.getTile(y).equals(board.getTile(y + 20)) && board.getTile(y).equals(board.getTile(y + 40)) && board.getTile(y).equals(board.getTile(y + 60))){
                     bool = true;
+                    tile = board.getTile(y);
                 }
             }
 
             if(board.getTile(y + 12) != null && board.getTile(y + 24) != null && board.getTile(y + 36) != null && board.getTile(y + 48) != null){
                 if(board.getTile(y + 12).equals(board.getTile(y + 24)) && board.getTile(y + 12).equals(board.getTile(y + 36)) && board.getTile(y + 12).equals(board.getTile(y + 48))){
                     bool = true;
+                    tile = board.getTile(y + 12);
                 }
             }
 
@@ -256,6 +269,7 @@ public class Gamelogic {
                     (board.getTile(12).equals(board.getTile(25)) && board.getTile(12).equals(board.getTile(38)) && board.getTile(12).equals(board.getTile(51))) ||
                     (board.getTile(15).equals(board.getTile(26)) && board.getTile(15).equals(board.getTile(37)) && board.getTile(15).equals(board.getTile(48)))) {
                 bool = true;
+                tile = board.getTile(0);
             }
         }
 
@@ -268,5 +282,9 @@ public class Gamelogic {
 
 	public Board getBoard(){
         return board;
+    }
+
+    public Tile getWinningTile(){
+        return tile;
     }
 }
