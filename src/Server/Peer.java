@@ -8,138 +8,138 @@ import java.util.List;
 import Shared.*;
 
 public class Peer {
-	private Board board;
 	private Player player;
 	private Player opponent;
 	private Player askmove;
-	private Gamelogic gamelogic;
 	private Server server;
 	private Lobby lobby;
-	int queuesize = 2;
 	
 
 	
-	public Peer(Gamelogic gamelogic, Board board,Server server) {
-		this.gamelogic = gamelogic;
-		this.board = board;
+	public Peer(Server server) {
 		this.server = server;
 		lobby = server.getLobby();
 	}
 
 	 
 	public String handleCommand(String cmd, Connection connection) {
-		 try {
-	      String result = "";
-	      Scanner scan = new Scanner(cmd);
-	      String str = scan.nextLine();
-	      Scanner fullCommand = new Scanner(str);
+		try {
+	    String result = "";
+	    Scanner scan = new Scanner(cmd);
+	    String str = scan.nextLine();
+	    Scanner fullCommand = new Scanner(str);
 
-	      String command = fullCommand.next();
+	    String command = fullCommand.next();
 
-	      if (command.equals("joinrequest")) {
-	    	  String name = fullCommand.next();
-	    	  boolean bool = false;
-	    	  for(int i = 0; i < lobby.getPlayer().size(); i++){
-	    		  if(name.equals(lobby.getPlayer().get(i).getName())){
-	    			  bool = true;
-	    		  }
-	    	  }
-	    	  if(bool){
-	    		  result = "denyrequest";
-	    	  }
-	    	  else{
-		    	  this.player = new Player(name, connection);
-			      lobby.putPlayer(player);
-			      result = "acceptrequest";
-	    	  }
-	      }
-	      if(command.equals("gamerequest")) {
-	    	  if(lobby.getPlayer().size() == 1) {
+	    if (command.equals("joinrequest")) {
+	    	String name = fullCommand.next();
+	    	boolean bool = false;
+	    	for(int i = 0; i < lobby.getPlayer().size(); i++){
+	    		if(name.equals(lobby.getPlayer().get(i).getName())){
+	    			bool = true;
+				}
+			}
+
+	    	if(bool){
+	    		result = "denyrequest";
+			}
+	    	else{
+		    	this.player = new Player(name, connection);
+			    lobby.putPlayer(player);
+			    result = "acceptrequest";
+			}
+		}
+
+	    else if(command.equals("gamerequest")) {
+	    	if(lobby.getPlayer().size() == 1) {
 	      
-	    	    String sendall = "waitforclient"; 
+	    		String sendall = "waitforclient";
 	    	    sendall = sendall + " " + lobby.getPlayer().get(0).getName();
 	    	    System.out.println(lobby.getPlayer().size());
 	    	    
 	    	    server.sendAll(sendall);
-	    	  } else { 
-	    	  server.startGame();
-	    	  String sendall = "startgame";
-	    	  server.sendAll(sendall);
-	    	  lobby.clearLobby();
+			} else {
+	    		server.startGame();
+	    	  	String sendall = "startgame";
+	    	  	server.sendAll(sendall);
+	    	  	lobby.clearLobby();
 	    	  
-	    	  int turn;
-	    	  if(Math.random() < 0.5){
-	    		  turn = 0;
-	    	  }
-	    	  else {
-	    		  turn = 1;
-	    	  }
-	    	  server.getGamelogic().setTurn(turn);
+	    	  	int turn;
+	    	  	if(Math.random() < 0.5){
+	    		 	turn = 0;
+	    	  	}
+	    	  	else {
+	    		  	turn = 1;
+	    	  	}
+	    	  	server.getGamelogic().setTurn(turn);
 	    	  
-	    	  Player turnPlayer = server.getGamelogic().getPlayers().get(server.getGamelogic().getTurn());
-	    	  String send = "moverequest";
-	    	  server.sendPlayer(turnPlayer, send);
-	    	  askmove = turnPlayer;
-	    	  }
-	    	  
-	      }
+	    	  	player = server.getGamelogic().getPlayers().get(server.getGamelogic().getTurn());
+	    	  	server.sendPlayer(player, "moverequest");
+	    	  	askmove = player;
+			}
+		}
 	      
-	      if(command.equals("setmove")) {
-			  for(int i = 0; i < server.getGamelogic().getPlayers().size(); i++){
-				  if(connection == server.getGamelogic().getPlayers().get(i).getConnection()){
-					  player = server.getGamelogic().getPlayers().get(i);
-				  }
-				  else{
-					  opponent = server.getGamelogic().getPlayers().get(i);
-				  }
-			  }
+		else if(command.equals("setmove")) {
+			for(int i = 0; i < server.getGamelogic().getPlayers().size(); i++){
+				if(connection == server.getGamelogic().getPlayers().get(i).getConnection()){
+					player = server.getGamelogic().getPlayers().get(i);
+				}
+				else{
+					opponent = server.getGamelogic().getPlayers().get(i);
+				}
+			}
 
-			  System.out.println("Degene die het zend is: " + (player == askmove));
-			  if(player == askmove) {
-				  String xas = fullCommand.next();
-				  String yas = fullCommand.next();
-				  List<Integer> availablespaces = new ArrayList<Integer>();
-				  availablespaces = server.getGamelogic().availablePuts();
+			askmove = server.getGamelogic().getPlayers().get(server.getGamelogic().getTurn());
 
-				  boolean valid = false;
+			if(player == askmove) {
+				String xas = fullCommand.next();
+				String yas = fullCommand.next();
+				List<Integer> availablespaces;
+				availablespaces = server.getGamelogic().availablePuts();
 
-				  int putplace = -1;
+				boolean valid = false;
 
-				  for (int i : availablespaces) {
-					  int modulo = i % 16;
-					  if (modulo == server.getGamelogic().getBoard().coordToInt(new Integer(xas), new Integer(yas), 0)) {
-						  valid = true;
-						  putplace = i;
-						  System.out.println("Valid is set to: " + valid + " and putplace is set to: " + putplace);
-					  }
-				  }
+				int putplace = -1;
 
-				  int zas = server.getGamelogic().getBoard().intToZCoord(putplace);
+				for (int i : availablespaces) {
+					int modulo = i % 16;
+					if (modulo == server.getGamelogic().getBoard().coordToInt(new Integer(xas), new Integer(yas), 0)) {
+						valid = true;
+						putplace = i;
+						System.out.println("Valid is set to: " + valid + " and putplace is set to: " + putplace);
+					}
+				}
 
-				  System.out.println("Tweede if wordt: " + new Boolean(valid && putplace != -1));
-				  if (valid && putplace != -1) {
-					  server.getGamelogic().putTile(player.getTile(), putplace);
-					  server.sendAll("notifymove " + player.getName() + " " + xas + " " + yas + " " + zas);
+				int zas = server.getGamelogic().getBoard().intToZCoord(putplace);
 
-					  if (server.getGamelogic().gameEnd()) {
-						  if (server.getGamelogic().getWinningTile() == Tile.RED) {
-							  server.sendAll("gameover " + server.getGamelogic().getPlayers().get(0).getName());
-						  } else {
-							  server.sendAll("gameover " + server.getGamelogic().getPlayers().get(1).getName());
-						  }
-					  } else {
-						  server.sendPlayer(opponent, "moverequest");
-					  }
-				  } else {
-					  server.sendPlayer(player, "denymove");
-					  server.sendPlayer(player, "moverequest");
-				  }
-				  server.getGamelogic().getBoard().printBoard();
-			  }
-			  else{
-				  server.sendPlayer(player, "denymove");
-			  }
-		  }
+				System.out.println("Tweede if wordt: " + new Boolean(valid && putplace != -1));
+				if (valid && putplace != -1) {
+					server.getGamelogic().putTile(player.getTile(), putplace);
+					server.sendAll("notifymove " + player.getName() + " " + xas + " " + yas + " " + zas);
+
+					if (server.getGamelogic().gameEnd()) {
+						if (server.getGamelogic().getWinningTile() == Tile.RED) {
+							server.sendAll("gameover " + server.getGamelogic().getPlayers().get(0).getName());
+						} else {
+							server.sendAll("gameover " + server.getGamelogic().getPlayers().get(1).getName());
+						}
+					} else {
+						server.sendPlayer(opponent, "moverequest");
+						server.getGamelogic().nextTurn();
+					}
+				} else {
+					server.sendPlayer(player, "denymove");
+					server.sendPlayer(player, "moverequest");
+				}
+				server.getGamelogic().getBoard().printBoard();
+			}
+			else{
+				server.sendPlayer(player, "denymove");
+				server.sendPlayer(player, "moverequest");
+			}
+
+			askmove = server.getGamelogic().getPlayers().get(server.getGamelogic().getTurn());
+		}
 	      
 	      /*if(lobby.getPlayer().size() == 0){
 	      boolean playerConnection = false;
@@ -152,14 +152,33 @@ public class Peer {
     		  }
     	  }
 	      }*/
-	      
-	      scan.close();
-	      fullCommand.close();
-	      return result;
+
+		else{
+			if(server.getGamelogic().getPlayers().size() != 0) {
+				for (int i = 0; i < server.getGamelogic().getPlayers().size(); i++) {
+					if (connection == server.getGamelogic().getPlayers().get(i).getConnection()) {
+						player = server.getGamelogic().getPlayers().get(i);
+					}
+				}
+			}
+			else{
+				for (int i = 0; i < lobby.getPlayer().size(); i++) {
+					if (connection == lobby.getPlayer().get(i).getConnection()) {
+						player = lobby.getPlayer().get(i);
+					}
+				}
+			}
+
+			server.sendPlayer(player, "invalidcommand");
+		}
+
+		scan.close();
+	    fullCommand.close();
+	    return result;
 	    } catch (java.util.NoSuchElementException e) {
 	      String result = "Invalid Server command";
 	      e.printStackTrace();
 	      return result;
 	    }
-	  }
+	}
 }

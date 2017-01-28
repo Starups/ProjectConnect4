@@ -16,7 +16,7 @@ import Shared.*;
  */
 public class Server extends Thread{
 	
-	ServerSocket server = null;
+	private ServerSocket server = null;
 	private Board board;
 	private Gamelogic gamelogic;
 	private String functions = "";

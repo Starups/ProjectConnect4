@@ -18,7 +18,6 @@ public class Connection extends Thread {
 	PrintWriter out;
 	BufferedReader inputStream;
 	Peer peer;
-	Lobby lobby;
 	
 	
 	public Connection(Server server, ServerSocket serversock) {
@@ -67,16 +66,12 @@ public class Connection extends Thread {
 	    } catch (IOException e) {
 	      e.printStackTrace();
 	    }
-	  }
+	}
 	
 	
 		  
-	 public void write(String str, PrintWriter out) {
+	public void write(String str, PrintWriter out) {
 		    out.println(str);
-		  }
-	
-	public Server getServer() {
-		    return server;
 		  }
 
 	public PrintWriter getOut() {

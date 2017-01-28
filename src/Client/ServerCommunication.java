@@ -22,23 +22,21 @@ public class ServerCommunication extends Thread {
         this.handle = handle;
         try {
             socket = new Socket(ip, portNumber);
-
-            System.out.println("Connected " + socket);
             out = new PrintWriter(socket.getOutputStream(), true);
-            System.out.println("Connecting Socket " + ip + ":" + portNumber);
         } catch (IOException e) {
             System.out.println("Failed to connect: " + e);
         }
     }
 
     public void run() {
-        System.out.println("Reading");
         read();
     }
 
     public void write(String str) {
         out.println(str);
-        System.out.println("Sent to Server: " + str);
+        if(!str.contains("joinrequest")){
+            System.out.println("Sent to Server: " + str);
+        }
     }
 
     public void read() {
@@ -51,7 +49,6 @@ public class ServerCommunication extends Thread {
                 while (!serverMessage.equals("Close")) {
                     if (!serverMessage.equals("") && !serverMessage.equals("Close")) {
                         handle.handleCommand(serverMessage);
-                        System.out.println(serverMessage);
                     }
                     serverMessage = inputStream.readLine();
                 }

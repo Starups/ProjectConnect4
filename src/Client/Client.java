@@ -17,6 +17,7 @@ public class Client {
     private Gamelogic gamelogic;
     private Board board;
     String name = "";
+    String color = "";
 
     public static void main(String[] args) {
         Client client = new Client();
@@ -24,7 +25,7 @@ public class Client {
     }
 
     public void start() {
-        System.out.println("Welcome to Connect4, to connect to a server, enter the following");
+        System.out.println("Welcome to Connect4, to connect to a server, enter the following things:");
         Scanner in = new Scanner(System.in);
         System.out.println("Ip:");
         String ip = "";
@@ -50,6 +51,12 @@ public class Client {
             name = in.nextLine();
         }
         System.out.println("User name: " + name);
+        System.out.println("What color would you like to be?");
+        color = in.nextLine();
+        while(!color.equals("Red") && !color.equals("Yellow")){
+            System.out.println("The color has to be: 'Red' or 'Yellow'");
+        }
+        System.out.println("You are : " + color);
 
         player = new Player(name);
         handle = new Handle(this);
@@ -67,7 +74,7 @@ public class Client {
         }
     }
 
-    public void startGame(String color){
+    public void startGame(){
         board = new Board();
         gamelogic = new Gamelogic(board);
         player = new Player(name);
