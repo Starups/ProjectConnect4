@@ -59,14 +59,6 @@ public class Server extends Thread{
 	    }
 	    input.close();
 	  }
-
-	public String getFunctions() {
-		return functions;
-	}
-	  
-	public Lobby getLobby() {
-		return lobby;
-	}
 	  
 	public void sendAll(String msg) {
 	    System.out.println("sendAll: " + msg);
@@ -85,10 +77,6 @@ public class Server extends Thread{
 	public void sendPlayer(Player player, String msg){
 		System.out.print("Send to " + player.getName() + ": " + msg);
 		player.getConnection().write(msg, player.getConnection().getOut());
-	}
-	  
-	public Gamelogic getGamelogic() {
-		return gamelogic;
 	}
 
 	public void connection(Peer peer, Socket socket) {
@@ -112,5 +100,17 @@ public class Server extends Thread{
 		Player player2 = lobby.getPlayer().get(1);
 		player2.setTile(Tile.YELLOW);
 		gamelogic.putPlayers(player1, player2);
+	}
+
+	public String getFunctions() {
+		return functions;
+	}
+
+	public Lobby getLobby() {
+		return lobby;
+	}
+
+	public Gamelogic getGamelogic() {
+		return gamelogic;
 	}
 }
