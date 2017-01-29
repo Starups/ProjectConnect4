@@ -75,9 +75,6 @@ public class Handle {
                 client.getGamelogic().putTile(tile, client.getBoard().coordToInt(new Integer(xas), new Integer(yas), new Integer(zas)));
                 System.out.println(name + " has done the following move: " + xas + "," + yas + "," + zas);
                 client.getBoard().printBoard();
-                if(!bool){
-                    System.out.println("Waiting for your opponent's move.");
-                }
             }
             if (command.equals("gameover")) {
                 String name = fullCommand.next();

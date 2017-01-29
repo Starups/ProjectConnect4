@@ -1,7 +1,5 @@
 package Server;
 
-
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
 
@@ -13,8 +11,6 @@ public class Peer {
 	private Player askmove;
 	private Server server;
 	private Lobby lobby;
-	
-
 	
 	public Peer(Server server) {
 		this.server = server;
@@ -72,9 +68,10 @@ public class Peer {
 	    		  	turn = 1;
 	    	  	}
 	    	  	server.getGamelogic().setTurn(turn);
-	    	  
+				opponent = server.getGamelogic().getPlayers().get((server.getGamelogic().getTurn() + 1) % 2);
 	    	  	player = server.getGamelogic().getPlayers().get(server.getGamelogic().getTurn());
 	    	  	server.sendPlayer(player, "moverequest");
+				server.sendPlayer(opponent, "waitforclient");
 	    	  	askmove = player;
 			}
 		}
@@ -125,6 +122,7 @@ public class Peer {
 						}
 					} else {
 						server.sendPlayer(opponent, "moverequest");
+						server.sendPlayer(player, "waitforclient");
 						server.getGamelogic().nextTurn();
 					}
 				} else {
@@ -135,7 +133,6 @@ public class Peer {
 			}
 			else{
 				server.sendPlayer(player, "denymove");
-				server.sendPlayer(player, "moverequest");
 			}
 
 			askmove = server.getGamelogic().getPlayers().get(server.getGamelogic().getTurn());
