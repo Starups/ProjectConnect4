@@ -54,7 +54,7 @@ public class Connection extends Thread {
 
 		  }
 	/*
-	 * Keeps reading the 
+	 * Keeps reading the socket.
 	 */
 	public void read(Socket connection, Peer peer, PrintWriter out, BufferedReader inputStream) {
 		this.connection = connection;
