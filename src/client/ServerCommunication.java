@@ -90,4 +90,8 @@ public class ServerCommunication extends Thread {
             e.printStackTrace();
         }
     }
+
+    public Socket getSocket(){
+        return socket;
+    }
 }

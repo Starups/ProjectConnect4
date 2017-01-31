@@ -77,10 +77,10 @@ public class Client {
             }
             System.out.println("You are : " + color);
         }
-        else{
+        else {
             this.aibool = true;
             name = "ComputerPlayer" + Math.random();
-            System.out.println(name);
+            System.out.println();
             color = "Red";
 
         }
@@ -90,11 +90,13 @@ public class Client {
          */
 
         player = new Player(name);
-        ai = new Ai(player, this);
+        if (aibool) {
+            ai = new Ai(player, this);
+        }
         handle = new Handle(this);
         sc = new ServerCommunication(ip, port, handle);
 
-        if (sc.socket != null) {
+        if (sc.getSocket() != null) {
             scThread = new Thread(sc);
             scThread.start();
             sc.write("joinrequest " + name + " 0 0 0 0");
