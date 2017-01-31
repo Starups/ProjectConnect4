@@ -11,11 +11,11 @@ import java.net.Socket;
  */
 public class ServerCommunication extends Thread {
 	// instance variables
-    String ip;
-    int portNumber;
-    Handle handle;
-    Socket socket;
-    PrintWriter out;
+    private String ip;
+    private int portNumber;
+    private Handle handle;
+    private Socket socket;
+    private PrintWriter out;
     
     //constructor
     /*

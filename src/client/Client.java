@@ -79,7 +79,8 @@ public class Client {
         }
         else{
             this.aibool = true;
-            name = "ComputerPlayer";
+            name = "ComputerPlayer" + Math.random();
+            System.out.println(name);
             color = "Red";
 
         }
