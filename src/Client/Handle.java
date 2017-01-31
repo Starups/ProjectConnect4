@@ -10,6 +10,9 @@ import java.util.Scanner;
 public class Handle {
     Client client;
 
+    /*
+     * main, creates the client and the handle between the client and the server.
+     */
     public static void main(String[] args) {
         Client client = new Client();
         Handle handle = new Handle(client);
@@ -23,11 +26,22 @@ public class Handle {
         handle.handleCommand("invalidcommand");
 
     }
+    
+    /*
+     * constructor of Handle
+     * 
+     * @param client (the client that is playing the game)
+     */
 
     public Handle(Client client){
         this.client = client;
     }
-
+    
+    /*
+     * handles all the commands that are sent by the server, gives the appropriate response to the client.
+     * 
+     * @param cmd (this is the String sent by the server)
+     */
     public void handleCommand(String cmd){
         Scanner scan = new Scanner(cmd);
         String str = scan.nextLine();

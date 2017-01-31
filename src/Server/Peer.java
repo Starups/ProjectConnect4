@@ -6,18 +6,30 @@ import java.util.List;
 import Shared.*;
 
 public class Peer {
+	//instance variables
 	private Player player;
 	private Player opponent;
 	private Player askmove;
 	private Server server;
 	private Lobby lobby;
 	
+	//constructor
+	/*
+	 * constructor of Peer
+	 * 
+	 * @param server
+	 */
 	public Peer(Server server) {
 		this.server = server;
 		lobby = server.getLobby();
 	}
 
-	 
+	 /*
+	  * gives the appropriate response to the command that was sent by a client.
+	  * 
+	  * @param cmd (the command that is sent by the client and needs to be handled)
+	  * @param connection (where the command came from)
+	  */
 	public String handleCommand(String cmd, Connection connection) {
 		try {
 	    String result = "";

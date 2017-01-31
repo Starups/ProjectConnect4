@@ -10,32 +10,53 @@ import java.util.Map;
  */
 
 public class Gamelogic {
+	//instance variables
     private int turn;
     private Map<Integer, Player> players = new HashMap<Integer, Player>();
     private Board board;
     private Tile tile;
 
+    // Constructor
+    /*
+     * the constructor of Gamelogic
+     * @param board (the gamelogic is applied on the board)
+     */
     public Gamelogic(Board board){
         this.board = board;
     }
-
+    
+    /*
+     * add both players to the list of players in the game
+     * 
+     * @param player1
+     * @param player2
+     */
     public void putPlayers(Player player1, Player player2){
         players.put(0, player1);
         players.put(1, player2);
     }
-
+    /*
+     * when a player made its move (and it is a valid move), this method gives the other player the turn
+     */
     public void nextTurn(){
         turn = (turn + 1) % players.size();
     }
-
+    /*
+     * 
+     * @param turn
+     */
     public void setTurn(int turn){
     	this.turn = turn;
     }
-
+    /*
+     * 
+     */
     public int getTurn(){
         return turn;
     }
-
+    /*
+     *  a list of places where you can place a tile (all the valid moves).
+     */
     public List<Integer> availablePuts(){
         List<Integer> places = new ArrayList<Integer>();
 
@@ -50,7 +71,12 @@ public class Gamelogic {
 
         return places;
     }
-
+    /*
+     * places the tile on a place
+     * 
+     * @param tile (the tile being placed)
+     * @param place (the place where the tile is being placed)
+     */
     public void putTile(Tile tile, int place){
         if(place < 0 || place > 63){
             System.out.println("ERROR " + place + " is not in range");
@@ -70,7 +96,9 @@ public class Gamelogic {
 
         this.gameEnd();
     }
-
+    /*
+     * all the possible ways that a game can end
+     */
     public boolean gameEnd(){
         Boolean bool = false;
 

@@ -9,6 +9,8 @@ import java.util.Scanner;
  * Created by Stan on 23-1-2017.
  */
 public class Client {
+	
+	// instant variables
     private Player player;
     private Player opponent;
     private Handle handle;
@@ -19,10 +21,19 @@ public class Client {
     String name = "";
     String color = "";
 
+    
+    /*
+     * main, creates a new client 
+     */
+    
     public static void main(String[] args) {
         Client client = new Client();
         client.start();
     }
+    
+    /*
+     * handles the commands sent by the server, you can enter a lobby when you got the right IP and port number.
+     */
 
     public void start() {
         System.out.println("Welcome to Connect4, to connect to a server, enter the following things:");
@@ -50,6 +61,10 @@ public class Client {
             System.out.println("Re-enter name: ");
             name = in.nextLine();
         }
+        
+        /*
+         * choose which color your tile will be for this game, you type either 'Red' or 'Yellow'
+         */
         System.out.println("User name: " + name);
         System.out.println("What color would you like to be?");
         color = in.nextLine();
@@ -73,7 +88,9 @@ public class Client {
             sc.write(typedMessage);
         }
     }
-
+    /*
+     *  Starts the game, sets up both players on the board and gives them both a color
+     */
     public void startGame(){
         board = new Board();
         gamelogic = new Gamelogic(board);
@@ -89,19 +106,32 @@ public class Client {
         }
         gamelogic.putPlayers(player, new Player("Opponent"));
     }
+    
+    /*
+     * returns the player
+     */
 
     public Player getPlayer(){
         return player;
     }
-
+    
+    /*
+     * returns the gamelogic
+     */
+    
     public Gamelogic getGamelogic(){
         return gamelogic;
     }
-
+    
+    /*
+     * returns the board
+     */
     public Board getBoard(){
         return board;
     }
-
+    /*
+     * returns the server communication
+     */
     public ServerCommunication getSc(){
         return sc;
     }

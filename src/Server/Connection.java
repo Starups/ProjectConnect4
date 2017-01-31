@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import Shared.*;
 
 public class Connection extends Thread {
+	//instance variables
 	Server server;
 	ServerSocket serversock;
 	String clientMessage = "";
@@ -19,12 +20,23 @@ public class Connection extends Thread {
 	BufferedReader inputStream;
 	Peer peer;
 	
+	//constructor
 	
+	/*
+	 * constructor of Connection
+	 * 
+	 * @param server 
+	 * @param serversock
+	 */
 	public Connection(Server server, ServerSocket serversock) {
 		this.server = server;
 		this.serversock = serversock;
 		
 	}
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Thread#run()
+	 */
 	@Override
 	public void run() {
 		  try {
@@ -41,7 +53,9 @@ public class Connection extends Thread {
 		    }
 
 		  }
-	
+	/*
+	 * Keeps reading the 
+	 */
 	public void read(Socket connection, Peer peer, PrintWriter out, BufferedReader inputStream) {
 		this.connection = connection;
 		this.peer = peer;
@@ -68,7 +82,9 @@ public class Connection extends Thread {
 	    }
 	}
 	
-	
+	/*
+	 * 
+	 */
 		  
 	public void write(String str, PrintWriter out) {
 		    out.println(str);
@@ -77,7 +93,12 @@ public class Connection extends Thread {
 	public PrintWriter getOut() {
 		return out;
 	}
-
+	
+	/*
+	 * command that closes the socket
+	 * 
+	 * @param connection 
+	 */
 	public void close(Socket connection) {
 	    try {
 	      connection.close();

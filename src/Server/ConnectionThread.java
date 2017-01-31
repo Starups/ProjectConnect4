@@ -8,13 +8,24 @@ import java.net.Socket;
 import Shared.*;
 
 public class ConnectionThread extends Thread{
+	//instance variables
 	  Socket socket;
 	  Server server;
 	  PrintWriter out;
 	  BufferedReader inputStream;
 	  Connection connection;
 	  Board board;
-	
+	  
+	  //constructor
+	  /*
+	   * constructor for ConnectionThread
+	   * 
+	   * @param socket
+	   * @param server
+	   * @param out
+	   * @param inputStream
+	   * @param connection
+	   */
 	public ConnectionThread(Socket socket, Server server,
 		      PrintWriter out, BufferedReader inputStream, Connection connection) {
 		this.socket = socket;
@@ -23,6 +34,11 @@ public class ConnectionThread extends Thread{
 	    this.inputStream = inputStream;
 	    this.connection = connection;
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Thread#run()
+	 */
 	
 	@Override
 	  public void run() {

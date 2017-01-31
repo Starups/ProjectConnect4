@@ -16,21 +16,31 @@ import Shared.*;
  */
 public class Server extends Thread{
 	
+	//instance variables
 	private ServerSocket server = null;
 	private Board board;
 	private Gamelogic gamelogic;
 	private String functions = "";
 	private Lobby lobby;
 	private Connection connection;
-
+	
+	//main, creates a new server
 	public static void main(String[] args) {
 		new Server();
 	}
-
+	//constructor
+	/*
+	 * constructor of Server
+	 * the lobby contains the players that will play on the server
+	 */
 	public Server() {
 		lobby = new Lobby();
 		Start();
 	}
+	
+	/*
+	 * starts a new server
+	 */
 	
 	public void Start() {
 		Scanner input = new Scanner(System.in);
@@ -59,7 +69,13 @@ public class Server extends Thread{
 	    }
 	    input.close();
 	  }
-	  
+	
+	/*
+	 *  sends a message to all the players in the server. For example when a move has been made,
+	 *  both players will receive a message.
+	 *  
+	 *  @param msg (the msg
+	 */
 	public void sendAll(String msg) {
 	    System.out.println("sendAll: " + msg);
 	    if(lobby.getPlayer().size() != 0){
@@ -74,11 +90,23 @@ public class Server extends Thread{
 	    }
 	}
 	
+	/*
+	 * sends a message to an individual player
+	 * 
+	 * @param player (to player the message is sent to)
+	 * @param msg (the String (message) that is sent to to player)
+	 */
+	
 	public void sendPlayer(Player player, String msg){
 		System.out.print("Send to " + player.getName() + ": " + msg);
 		player.getConnection().write(msg, player.getConnection().getOut());
 	}
-
+	/*
+	 * makes a new connection for a client
+	 * 
+	 * @param peer (the peer that handles the client)
+	 * @param socket (the socket that the client uses)
+	 */
 	public void connection(Peer peer, Socket socket) {
 	    try {
 	    	System.out.println("Client connected: " + socket);
@@ -105,10 +133,18 @@ public class Server extends Thread{
 	public String getFunctions() {
 		return functions;
 	}
+	
+	/*
+	 * returns lobby
+	 */
 
 	public Lobby getLobby() {
 		return lobby;
 	}
+	
+	/*
+	 * returns gamelogic
+	 */
 
 	public Gamelogic getGamelogic() {
 		return gamelogic;
