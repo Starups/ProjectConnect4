@@ -1,20 +1,20 @@
-package Server;
+package server;
 
 
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-import Shared.*;
+import shared.*;
 
-public class ConnectionThread extends Thread{
+public class ConnectionThread extends Thread {
 	//instance variables
-	  Socket socket;
-	  Server server;
-	  PrintWriter out;
-	  BufferedReader inputStream;
-	  Connection connection;
-	  Board board;
+	Socket socket;
+	Server server;
+	PrintWriter out;
+	BufferedReader inputStream;
+	Connection connection;
+	Board board;
 	  
 	  //constructor
 	  /*
@@ -39,15 +39,14 @@ public class ConnectionThread extends Thread{
 	 * (non-Javadoc)
 	 * @see java.lang.Thread#run()
 	 */
-	
 	@Override
 	  public void run() {
 	    Peer peer = new Peer(server);
 	    server.connection(peer, socket);
 	    System.out.println("test");
 	    connection.read(socket, peer, out, inputStream);
-	  }
+	}
 	
 		
-	}
+}
 	

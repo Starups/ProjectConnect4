@@ -1,8 +1,8 @@
-package Client;
-
-import Shared.Tile;
+package client;
 
 import java.util.Scanner;
+
+import shared.Tile;
 
 /**
  * Created by Stan on 23-1-2017.
@@ -33,23 +33,24 @@ public class Handle {
      * @param client (the client that is playing the game)
      */
 
-    public Handle(Client client){
+    public Handle(Client client) {
         this.client = client;
     }
     
     /*
-     * handles all the commands that are sent by the server, gives the appropriate response to the client.
+     * handles all the commands that are sent by the server, 
+     * gives the appropriate response to the client.
      * 
      * @param cmd (this is the String sent by the server)
      */
-    public void handleCommand(String cmd){
+    public void handleCommand(String cmd) {
         Scanner scan = new Scanner(cmd);
         String str = scan.nextLine();
         try {
             Scanner fullCommand = new Scanner(str);
 
             String command = fullCommand.next();
-            command = command.replace("", ""); //To fix a weird bug where it would place 's in front of messages from the server
+            command = command.replace("", ""); 
             if (command.equals("acceptrequest")) {
                 System.out.println("The server has accepted the connection.");
             }
@@ -73,12 +74,11 @@ public class Handle {
             if (command.equals("notifymove")) {
                 String name = fullCommand.next();
                 Tile tile = client.getPlayer().getTile();
-                boolean bool = (client.getPlayer().getName().equals(name));
-                if(!bool){
-                    if(tile == Tile.RED){
+                boolean bool = client.getPlayer().getName().equals(name);
+                if (!bool) {
+                    if (tile == Tile.RED) {
                         tile = Tile.YELLOW;
-                    }
-                    else{
+                    } else {
                         tile = Tile.RED;
                     }
                 }
@@ -86,16 +86,17 @@ public class Handle {
                 String xas = fullCommand.next();
                 String yas = fullCommand.next();
                 String zas = fullCommand.next();
-                client.getGamelogic().putTile(tile, client.getBoard().coordToInt(new Integer(xas), new Integer(yas), new Integer(zas)));
-                System.out.println(name + " has done the following move: " + xas + "," + yas + "," + zas);
+                client.getGamelogic().putTile(tile, client.getBoard().coordToInt(
+                	new Integer(xas), new Integer(yas), new Integer(zas)));
+                System.out.println(
+                		name + " has done the following move: " + xas + "," + yas + "," + zas);
                 client.getBoard().printBoard();
             }
             if (command.equals("gameover")) {
                 String name = fullCommand.next();
-                if(name.equals(client.getPlayer().getName())){
+                if (name.equals(client.getPlayer().getName())) {
                     System.out.println("Congratulations! You have won the game!");
-                }
-                else{
+                } else {
                     System.out.println("Unlucky! You have lost the game!");
                 }
                 client.getSc().close();

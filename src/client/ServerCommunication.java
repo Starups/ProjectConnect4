@@ -1,4 +1,4 @@
-package Client;
+package client;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -51,7 +51,7 @@ public class ServerCommunication extends Thread {
      */
     public void write(String str) {
         out.println(str);
-        if(!str.contains("joinrequest")){
+        if (!str.contains("joinrequest")) {
             System.out.println("Sent to Server: " + str);
         }
     }

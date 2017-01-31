@@ -1,4 +1,4 @@
-package Shared;
+package shared;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,11 +27,10 @@ public class Board {
      * @param tile (the tile)
      * @param place (the place on the board on which the tile will be placed)
      */
-    public void putTile(Tile tile, int place){
-        if(tileLocs.containsKey(place)){
+    public void putTile(Tile tile, int place) { 
+        if (tileLocs.containsKey(place)) {
             tileLocs.replace(place, tile);
-        }
-        else {
+        } else {
             tileLocs.put(place, tile);
         }
     }
@@ -42,7 +41,7 @@ public class Board {
      * @param place (the place of the tile)
      */
     
-    public Tile getTile(int place){
+    public Tile getTile(int place) {
         return tileLocs.get(place);
     }
     
@@ -52,15 +51,15 @@ public class Board {
      * @param zcoord (z value)
      */
 
-    public int coordToInt(int xcoord, int ycoord, int zcoord){
-        return xcoord + 4*ycoord + 16*zcoord;
+    public int coordToInt(int xcoord, int ycoord, int zcoord) {
+        return xcoord + 4 * ycoord + 16 * zcoord;
     }
 
     /*
      * 
      * @param coord (x value)
      */
-    public int intToXCoord(int coord){
+    public int intToXCoord(int coord) {
         return coord % 4;
     }
     /*
@@ -68,23 +67,23 @@ public class Board {
      * @param coord (y value)
      */
 
-    public int intToYCoord(int coord){
-        return (coord % 16)/4;
+    public int intToYCoord(int coord) {
+        return (coord % 16) / 4;
     }
     /*
-     * 
+     *
      * @param coord (z value)
      */
 
-    public int intToZCoord(int coord){
-        return coord/16;
+    public int intToZCoord(int coord) {
+        return coord / 16;
     }
     
     /*
      * returns the location of the tiles
      */
     
-    public Map<Integer, Tile> getTileLocs(){
+    public Map<Integer, Tile> getTileLocs() {
         return tileLocs;
     }
     
@@ -92,8 +91,8 @@ public class Board {
      * clears the board
      */
 
-    public void clear(){
-        for(int i = 0; i < 64; i++){
+    public void clear() {
+        for (int i = 0; i < 64; i++) {
             this.putTile(null, i);
         }
     }
@@ -102,10 +101,10 @@ public class Board {
      * prints the board, 4x4x4
      */
 
-    public void printBoard(){
-        for(int z = 3; z >= 0; z--){
+    public void printBoard() {
+        for (int z = 3; z >= 0; z--) {
             System.out.println("z = " + z);
-            for(int y = 3; y >= 0; y--){
+            for (int y = 3; y >= 0; y--) {
                 System.out.println(this.getTile(0 + y * 4 + z * 16) + " " +
                         this.getTile(1 + y * 4 + z * 16) + " " +
                         this.getTile(2 + y * 4 + z * 16) + " " +

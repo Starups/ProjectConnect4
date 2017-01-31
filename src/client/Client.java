@@ -1,7 +1,6 @@
-package Client;
+package client;
 
-import Shared.*;
-import com.sun.org.apache.xpath.internal.SourceTree;
+import shared.*;
 
 import java.util.Scanner;
 
@@ -30,13 +29,15 @@ public class Client {
         Client client = new Client();
         client.start();
     }
-    
+   
     /*
-     * handles the commands sent by the server, you can enter a lobby when you got the right IP and port number.
+     * handles the commands sent by the server, you can enter a lobby when you got the right
+     *  IP and port number.
      */
 
     public void start() {
-        System.out.println("Welcome to Connect4, to connect to a server, enter the following things:");
+        System.out.println(
+        		"Welcome to Connect4, to connect to a server, enter the following things:");
         Scanner in = new Scanner(System.in);
         System.out.println("Ip:");
         String ip = "";
@@ -68,7 +69,7 @@ public class Client {
         System.out.println("User name: " + name);
         System.out.println("What color would you like to be?");
         color = in.nextLine();
-        while(!color.equals("Red") && !color.equals("Yellow")){
+        while (!color.equals("Red") && !color.equals("Yellow")) {
             System.out.println("The color has to be: 'Red' or 'Yellow'");
         }
         System.out.println("You are : " + color);
@@ -91,16 +92,15 @@ public class Client {
     /*
      *  Starts the game, sets up both players on the board and gives them both a color
      */
-    public void startGame(){
+    public void startGame() {
         board = new Board();
         gamelogic = new Gamelogic(board);
         player = new Player(name);
         opponent = new Player("Opponent");
-        if(color.equals("Red")){
+        if (color.equals("Red")) {
             player.setTile(Tile.RED);
             opponent.setTile(Tile.YELLOW);
-        }
-        else{
+        } else {
             player.setTile(Tile.YELLOW);
             opponent.setTile(Tile.RED);
         }
@@ -111,7 +111,7 @@ public class Client {
      * returns the player
      */
 
-    public Player getPlayer(){
+    public Player getPlayer() {
         return player;
     }
     
@@ -119,20 +119,20 @@ public class Client {
      * returns the gamelogic
      */
     
-    public Gamelogic getGamelogic(){
+    public Gamelogic getGamelogic() {
         return gamelogic;
     }
     
     /*
      * returns the board
      */
-    public Board getBoard(){
+    public Board getBoard() {
         return board;
     }
     /*
      * returns the server communication
      */
-    public ServerCommunication getSc(){
+    public ServerCommunication getSc() {
         return sc;
     }
 }
