@@ -89,7 +89,10 @@ public class Connection extends Thread {
 	public void write(String str, PrintWriter out) {
 	    out.println(str);
     }
-
+	
+	/*
+	 * @return out
+	 */
 	public PrintWriter getOut() {
 		return out;
 	}
