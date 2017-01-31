@@ -17,6 +17,8 @@ public class Client {
     private Thread scThread = null;
     private Gamelogic gamelogic;
     private Board board;
+    private boolean aibool;
+    private Ai ai;
     String name = "";
     String color = "";
 
@@ -56,25 +58,38 @@ public class Client {
         }
         port = new Integer(portEntry);
         System.out.println("port: " + port);
-        System.out.println("User name:");
-        name = in.nextLine();
-        while (name.equals("")) {
-            System.out.println("Re-enter name: ");
+        System.out.println("Ai? (Yes or No)");
+        String yesorno = "";
+        yesorno = in.nextLine();
+        if(yesorno.equals("No")){
+            this.aibool = false;
+            System.out.println("User name:");
             name = in.nextLine();
+            while (name.equals("")) {
+                System.out.println("Re-enter name: ");
+                name = in.nextLine();
+            }
+            System.out.println("User name: " + name);
+            System.out.println("What color would you like to be?");
+            color = in.nextLine();
+            while (!color.equals("Red") && !color.equals("Yellow")) {
+                System.out.println("The color has to be: 'Red' or 'Yellow'");
+            }
+            System.out.println("You are : " + color);
+        }
+        else{
+            this.aibool = true;
+            name = "ComputerPlayer";
+            color = "Red";
+
         }
         
         /*
          * choose which color your tile will be for this game, you type either 'Red' or 'Yellow'
          */
-        System.out.println("User name: " + name);
-        System.out.println("What color would you like to be?");
-        color = in.nextLine();
-        while (!color.equals("Red") && !color.equals("Yellow")) {
-            System.out.println("The color has to be: 'Red' or 'Yellow'");
-        }
-        System.out.println("You are : " + color);
 
         player = new Player(name);
+        ai = new Ai(player, this);
         handle = new Handle(this);
         sc = new ServerCommunication(ip, port, handle);
 
@@ -83,6 +98,7 @@ public class Client {
             scThread.start();
             sc.write("joinrequest " + name + " 0 0 0 0");
         }
+
 
         while (true) {
             String typedMessage = in.nextLine();
@@ -142,5 +158,18 @@ public class Client {
      */
     public ServerCommunication getSc() {
         return sc;
+    }
+
+    /*
+     * returns true if player is ai and false if player is human
+     *
+     * @return boolean
+     */
+    public boolean getAibool(){
+        return aibool;
+    }
+
+    public Ai getAi(){
+        return ai;
     }
 }

@@ -67,6 +67,10 @@ public class Handle {
             }
             if (command.equals("moverequest")) {
                 System.out.println("Please send your move.");
+                if(client.getAibool()){
+                    String move = client.getAi().smartmove();
+                    client.getSc().write(move);
+                }
             }
             if (command.equals("denymove")) {
                 System.out.println("This move is not allowed. Please send an allowed move.");

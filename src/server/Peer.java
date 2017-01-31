@@ -152,17 +152,17 @@ public class Peer {
 				askmove = server.getGamelogic().getPlayers().get(server.getGamelogic().getTurn());
 			
 
-			/*if(lobby.getPlayer().size() == 0){
-	      boolean playerConnection = false;
-    	  for(int i = 0; i < server.getGamelogic().getPlayers().size(); i++) {
-    		  if (server.getGamelogic().getPlayers().get(i).getConnection().isAlive()) {
-    			  playerConnection = true;
-    		  }
-    		  if (!playerConnection) {
-    			  result = "connectionlost";
-    		  }
-    	  }
-	      }*/
+				if(lobby.getPlayer().size() == 0){
+	     	 		boolean playerConnection = false;
+    	  			for(int i = 0; i < server.getGamelogic().getPlayers().size(); i++) {
+						if (server.getGamelogic().getPlayers().get(i).getConnection().isAlive()) {
+							playerConnection = true;
+						}
+					}
+    		  		if (!playerConnection) {
+    			  		result = "connectionlost";
+    		  		}
+	      		}
 
 			} else {
 				if (server.getGamelogic().getPlayers().size() != 0) {
