@@ -19,6 +19,10 @@ public class Lobby {
 	public void putPlayer(Player name) {
 		players.add(name);
 	}
+	
+	/*
+	 * @return players (list of players in the lobby)
+	 */
 
 	public List<Player> getPlayer() {
 		return players;

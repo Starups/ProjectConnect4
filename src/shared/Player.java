@@ -54,19 +54,29 @@ public class Player {
     }
    /*
     * amount of tiles the player has left
+    * 
+    * @return int of amount of tiles
     */
     public int getAmountTiles() {
         return amountTiles;
     }
-
+    /*
+     * @return tile 
+     */
     public Tile getTile() {
         return tile;
     }
-
+    
+    /*
+     * return name (name of the player)
+     */
     public String getName() {
         return name;
     }
-
+    
+    /*
+     * return connection
+     */
     public Connection getConnection() {
         return connection;
     }

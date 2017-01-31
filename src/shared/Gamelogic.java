@@ -50,13 +50,15 @@ public class Gamelogic {
 		this.turn = turn;
 	}
 	/*
-	 * 
+	 * @return turn
 	 */
 	public int getTurn() {
 		return turn;
 	}
 	/*
 	 *  a list of places where you can place a tile (all the valid moves).
+	 *  
+	 *  @return Integer (list of all the available places to play a tile)
 	 */
 	public List<Integer> availablePuts() {
 		List<Integer> places = new ArrayList<Integer>();
@@ -98,6 +100,8 @@ public class Gamelogic {
 	}
 	/*
 	 * all the possible ways that a game can end
+	 *  
+	 * @return boolean (has the game ended or not)
 	 */
 	public boolean gameEnd() {
 		Boolean bool = false;
@@ -117,6 +121,9 @@ public class Gamelogic {
 	}
 
 	//Four in a row in the x as.
+	/*
+	 * @return boolean (is there 4 in a row on the x as)
+	 */
 	public boolean gameEndxas() {
 		Boolean bool = false;
 
@@ -140,6 +147,9 @@ public class Gamelogic {
 	}
 
 	//Four in a row in the y as
+	/*
+	 * @return boolean (is there 4 in a row on the y as)
+	 */
 	public boolean gameEndyas() {
 		Boolean bool = false;
 
@@ -195,6 +205,9 @@ public class Gamelogic {
 	}
 
 	//Four in a row in the z as.
+	/*
+	 * @return boolean (is there 4 in a row on the z as)
+	 */
 	public boolean gameEndzas() {
 		Boolean bool = false;
 
@@ -218,6 +231,9 @@ public class Gamelogic {
 	}
 
 	//Four in a row from 0,0,0 to 3,3,0 and 0,3,0 to 3,0,0
+	/*
+	 *  @return boolean 
+	 */
 	public boolean gameEndxyas() {
 		Boolean bool = false;
 
@@ -251,6 +267,9 @@ public class Gamelogic {
 	}
 
 	//Four in a row from 0,0,0 to 3,0,3 and 3,0,0 to 0,0,3
+	/*
+	 * @return boolean
+	 */
 	public boolean gameEndxzas() {
 		Boolean bool = false;
 
@@ -284,6 +303,9 @@ public class Gamelogic {
 	}
 
 	//Four in a row from 0,0,0 to 0,3,3 and 0,3,0 to 0,0,3
+	/*
+	 * @return boolean
+	 */
 	public boolean gameEndyzas() {
 		Boolean bool = false;
 
@@ -317,6 +339,9 @@ public class Gamelogic {
 	}
 
 	//Four in a row diagonal
+	/*
+	 * @return boolean
+	 */
 	public boolean gameEndxyzas() {
 		Boolean bool = false;
 
@@ -347,15 +372,24 @@ public class Gamelogic {
 
 		return bool;
 	}
-
+	
+	/*
+	 * @return list of players in the game
+	 */
 	public Map<Integer, Player> getPlayers() {
 		return players;
 	}
-
+	
+	/*
+	 * @return board
+	 */
 	public Board getBoard() {
 		return board;
 	}
-
+	
+	/*
+	 * @return the winning tile
+	 */
 	public Tile getWinningTile() {
 		return tile;
 	}

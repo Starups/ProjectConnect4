@@ -131,13 +131,16 @@ public class Server extends Thread {
 		player2.setTile(Tile.YELLOW);
 		gamelogic.putPlayers(player1, player2);
 	}
+	/*
+	 * @return functions
+	 */
 
 	public String getFunctions() {
 		return functions;
 	}
 
-	/*
-	 * returns lobby
+	/* 
+	 * @return lobby
 	 */
 
 	public Lobby getLobby() {
@@ -145,7 +148,7 @@ public class Server extends Thread {
 	}
 
 	/*
-	 * returns gamelogic
+	 * @return gameLogic
 	 */
 
 	public Gamelogic getGamelogic() {

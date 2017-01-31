@@ -30,6 +30,8 @@ public class Peer {
 	 * 
 	 * @param cmd (the command that is sent by the client and needs to be handled)
 	 * @param connection (where the command came from)
+	 * 
+	 * @return String 
 	 */
 	public String handleCommand(String cmd, Connection connection) {
 		try {

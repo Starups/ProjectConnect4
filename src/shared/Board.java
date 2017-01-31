@@ -39,6 +39,7 @@ public class Board {
      * returns the place of a tile
      * 
      * @param place (the place of the tile)
+     * @return tileLocs (place of the tile)
      */
     
     public Tile getTile(int place) {
@@ -49,6 +50,8 @@ public class Board {
      * @param xcoord (x value)
      * @param ycoord (y value)
      * @param zcoord (z value)
+     * 
+     * @return int (all values)
      */
 
     public int coordToInt(int xcoord, int ycoord, int zcoord) {
@@ -56,23 +59,23 @@ public class Board {
     }
 
     /*
-     * 
      * @param coord (x value)
+     * @return int (value)
      */
     public int intToXCoord(int coord) {
         return coord % 4;
     }
     /*
-     * 
      * @param coord (y value)
+     * @return int (value)
      */
 
     public int intToYCoord(int coord) {
         return (coord % 16) / 4;
     }
     /*
-     *
      * @param coord (z value)
+     * @return int (value)
      */
 
     public int intToZCoord(int coord) {
@@ -81,6 +84,8 @@ public class Board {
     
     /*
      * returns the location of the tiles
+     * 
+     * @return tileLocs
      */
     
     public Map<Integer, Tile> getTileLocs() {

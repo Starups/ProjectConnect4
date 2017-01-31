@@ -109,14 +109,18 @@ public class Client {
     
     /*
      * returns the player
+     * 
+     * @return player
      */
 
     public Player getPlayer() {
         return player;
     }
-    
+   
     /*
-     * returns the gamelogic
+     * returns the gameLogic
+     * 
+     * @return gameLogic
      */
     
     public Gamelogic getGamelogic() {
@@ -125,12 +129,16 @@ public class Client {
     
     /*
      * returns the board
+     * 
+     * @return board
      */
     public Board getBoard() {
         return board;
     }
     /*
      * returns the server communication
+     * 
+     * @return serverCommunication
      */
     public ServerCommunication getSc() {
         return sc;
