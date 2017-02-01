@@ -11,7 +11,7 @@ public class Ai {
     private Player player;
     private Client client;
 
-    public Ai(Player player , Client client) {
+    public Ai(Player player, Client client) {
         this.player = player;
         this.client = client;
     }

@@ -58,10 +58,10 @@ public class BoardTest {
     }
 
     @Test
-    public void clearTest(){
+    public void clearTest() {
         board.clear();
 
-        for(int i = 0; i < 64; i++){
+        for (int i = 0; i < 64; i++) {
             assertEquals(board.getTile(i), null);
         }
     }
