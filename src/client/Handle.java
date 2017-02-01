@@ -103,7 +103,6 @@ public class Handle {
                 } else {
                     System.out.println("Unlucky! You have lost the game!");
                 }
-                client.getSc().close();
                 System.out.println("Please restart the client to play another game.");
             }
             if (command.equals("connectionlost")) {

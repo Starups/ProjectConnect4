@@ -135,6 +135,9 @@ public class Peer {
 								server.sendAll("gameover " + server.getGamelogic(
 										).getPlayers().get(1).getName());
 							}
+
+							server.getLobby().putPlayer(player);
+							server.getLobby().putPlayer(opponent);
 						} else {
 							server.sendPlayer(opponent, "moverequest");
 							server.sendPlayer(player, "waitforclient");
