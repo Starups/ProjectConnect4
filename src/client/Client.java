@@ -61,7 +61,7 @@ public class Client {
         System.out.println("Ai? (Yes or No)");
         String yesorno = "";
         yesorno = in.nextLine();
-        if(yesorno.equals("No")){
+        if (yesorno.equals("No")) {
             this.aibool = false;
             System.out.println("User name:");
             name = in.nextLine();
@@ -76,8 +76,7 @@ public class Client {
                 System.out.println("The color has to be: 'Red' or 'Yellow'");
             }
             System.out.println("You are : " + color);
-        }
-        else {
+        } else {
             this.aibool = true;
             name = "ComputerPlayer" + Math.random();
             System.out.println();
@@ -168,11 +167,11 @@ public class Client {
      *
      * @return boolean
      */
-    public boolean getAibool(){
+    public boolean getAibool() {
         return aibool;
     }
 
-    public Ai getAi(){
+    public Ai getAi() {
         return ai;
     }
 }

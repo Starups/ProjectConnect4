@@ -21,23 +21,25 @@ public class Ai {
         int xcoord;
         int ycoord;
 
-        if(client.getBoard().getTile(0) == null){
+        if (client.getBoard().getTile(0) == null) {
             xcoord = 0;
             ycoord = 0;
-        }
-        else if(client.getBoard().getTile(0) == Tile.RED && client.getBoard().getTile(1) == null){
+        } else if (client.getBoard().getTile(0) == Tile.RED 
+        		&& client.getBoard().getTile(1) == null) {
             xcoord = 1;
             ycoord = 0;
-        }
-        else if(client.getBoard().getTile(0) == Tile.RED && client.getBoard().getTile(1) == Tile.RED && client.getBoard().getTile(2) == null){
+        } else if (client.getBoard().getTile(0) == Tile.RED 
+        		&& client.getBoard().getTile(1) == Tile.RED 
+        		&& client.getBoard().getTile(2) == null) {
             xcoord = 2;
             ycoord = 0;
-        }
-        else if(client.getBoard().getTile(0) == Tile.RED && client.getBoard().getTile(1) == Tile.RED && client.getBoard().getTile(2) == Tile.RED && client.getBoard().getTile(3) == null){
+        } else if (client.getBoard().getTile(0) == Tile.RED 
+        		&& client.getBoard().getTile(1) == Tile.RED 
+        		&& client.getBoard().getTile(2) == Tile.RED 
+        		&& client.getBoard().getTile(3) == null) {
             xcoord = 3;
             ycoord = 0;
-        }
-        else {
+        } else {
             List<Integer> places = client.getGamelogic().availablePuts();
 
             int chosen = places.get((int) (Math.random() * places.size()));

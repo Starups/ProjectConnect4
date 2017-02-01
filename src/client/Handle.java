@@ -67,7 +67,7 @@ public class Handle {
             }
             if (command.equals("moverequest")) {
                 System.out.println("Please send your move.");
-                if(client.getAibool()){
+                if (client.getAibool()) {
                     String move = client.getAi().smartmove();
                     client.getSc().write(move);
                 }
