@@ -68,7 +68,8 @@ public class Peer {
 					server.sendAll(sendall);
 				} else {
 					server.startGame();
-					String sendall = "startgame " + lobby.getPlayer().get(0) + " " + lobby.getPlayer().get(1);
+					String sendall = "startgame " 
+							+ lobby.getPlayer().get(0) + " " + lobby.getPlayer().get(1);
 					server.sendAll(sendall);
 					lobby.clearLobby();
 

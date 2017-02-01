@@ -28,14 +28,14 @@ public class PlayerTest {
     }
 
     @Test
-    public void setAmountTilesTest(){
+    public void setAmountTilesTest() {
         player.setAmountTiles(2);
 
         assertEquals(player.getAmountTiles(), 2);
     }
 
     @Test
-    public void minusOneTest(){
+    public void minusOneTest() {
         player.setAmountTiles(32);
 
         player.minusOne();
