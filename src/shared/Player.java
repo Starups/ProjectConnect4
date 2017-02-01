@@ -6,7 +6,7 @@ import server.Connection;
  * Created by Stan on 25-12-2016.
  */
 public class Player {
-	//instance variables
+	//instance variabls
     private int amountTiles;
     private Tile tile;
     private String name;
@@ -40,6 +40,9 @@ public class Player {
     public void setTile(Tile tile) {
         this.tile = tile;
     }
+    /*
+     * @param amount
+     */
 
     public void setAmountTiles(int amount) {
         amountTiles = amount;
