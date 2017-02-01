@@ -33,8 +33,7 @@ public class Client {
     }
    
     /*
-     * handles the commands sent by the server, you can enter a lobby when you got the right
-     *  IP and port number.
+     * 	starts a new client, enter IP and port number.
      */
 
     public void start() {
@@ -70,6 +69,9 @@ public class Client {
                 name = in.nextLine();
             }
             System.out.println("User name: " + name);
+            /*
+             * choose which color your tile will be for this game, you type either 'Red' or 'Yellow'
+             */
             System.out.println("What color would you like to be?");
             color = in.nextLine();
             while (!color.equals("Red") && !color.equals("Yellow")) {
@@ -84,9 +86,7 @@ public class Client {
 
         }
         
-        /*
-         * choose which color your tile will be for this game, you type either 'Red' or 'Yellow'
-         */
+     
 
         player = new Player(name);
         if (aibool) {

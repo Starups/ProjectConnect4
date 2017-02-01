@@ -36,6 +36,9 @@ public class Player {
         setAmountTiles(32);
         this.name = name;
     }
+    /*
+     * @param tile
+     */
 
     public void setTile(Tile tile) {
         this.tile = tile;
