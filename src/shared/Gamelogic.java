@@ -12,15 +12,19 @@ import java.util.Map;
 public class Gamelogic {
 	//instance variables
 	private int turn;
-	private Map<Integer, Player> players = new HashMap<Integer, Player>();
 	private Board board;
 	private Tile tile;
+
+	// @ private invariant players.length >= 0;
+	private Map<Integer, Player> players = new HashMap<Integer, Player>();
 
 	// Constructor
 	/*
 	 * the constructor of Gamelogic
 	 * @param board (the gamelogic is applied on the board)
 	 */
+
+	//@ ensures getBoard() = board
 	public Gamelogic(Board board) {
 		this.board = board;
 	}
@@ -31,6 +35,8 @@ public class Gamelogic {
 	 * @param player1
 	 * @param player2
 	 */
+
+	//@ ensures getPlayers().size() = /old(getPlayers().size()) + 2
 	public void putPlayers(Player player1, Player player2) {
 		players.put(0, player1);
 		players.put(1, player2);
@@ -39,6 +45,8 @@ public class Gamelogic {
 	 * when a player made its move (and it is a valid move), 
 	 * this method gives the other player the turn
 	 */
+
+	//@ ensures getTurn() = (/old(getTurn()) + 1) % getPlayers().size()
 	public void nextTurn() {
 		turn = (turn + 1) % players.size();
 	}
@@ -46,12 +54,17 @@ public class Gamelogic {
 	 * 
 	 * @param turn
 	 */
+
+	//@ requires turn >= 0 & turn <= 1
+	//@ ensures getTurn() = turn
 	public void setTurn(int turn) {
 		this.turn = turn;
 	}
 	/*
 	 * @return turn
 	 */
+
+	//@ *pure*
 	public int getTurn() {
 		return turn;
 	}
@@ -60,6 +73,8 @@ public class Gamelogic {
 	 *  
 	 *  @return Integer (list of all the available places to play a tile)
 	 */
+
+	//@ensures \result.size() <= 16
 	public List<Integer> availablePuts() {
 		List<Integer> places = new ArrayList<Integer>();
 
@@ -79,6 +94,10 @@ public class Gamelogic {
 	 * @param tile (the tile being placed)
 	 * @param place (the place where the tile is being placed)
 	 */
+	//@ requires tile = Tile.RED || tile = Tile.YELLOW
+	//@ requires place <= 63 & place >= 1
+	//@ requires getBoard().getTile(place) == null
+	//@ ensures getBoard().getTile(place) = tile
 	public void putTile(Tile tile, int place) {
 		if (place < 0 || place > 63) {
 			System.out.println("ERROR " + place + " is not in range");
@@ -103,6 +122,14 @@ public class Gamelogic {
 	 *  
 	 * @return boolean (has the game ended or not)
 	 */
+
+	//@ensures gameEndxas == true ==> \return == true;
+	//@ensures gameEndyas == true ==> \return == true;
+	//@ensures gameEndzas == true ==> \return == true;
+	//@ensures gameEndxyas == true ==> \return == true;
+	//@ensures gameEndyzas == true ==> \return == true;
+	//@ensures gameEndxzas == true ==> \return == true;
+	//@ensures gameEndxyzas == true ==> \return == true;
 	public boolean gameEnd() {
 		Boolean bool = false;
 
@@ -124,6 +151,7 @@ public class Gamelogic {
 	/*
 	 * @return boolean (is there 4 in a row on the x as)
 	 */
+	//@ pure
 	public boolean gameEndxas() {
 		Boolean bool = false;
 
@@ -150,6 +178,7 @@ public class Gamelogic {
 	/*
 	 * @return boolean (is there 4 in a row on the y as)
 	 */
+	//@ pure
 	public boolean gameEndyas() {
 		Boolean bool = false;
 
@@ -208,6 +237,7 @@ public class Gamelogic {
 	/*
 	 * @return boolean (is there 4 in a row on the z as)
 	 */
+	//@ pure
 	public boolean gameEndzas() {
 		Boolean bool = false;
 
@@ -234,6 +264,7 @@ public class Gamelogic {
 	/*
 	 *  @return boolean 
 	 */
+	//@ pure
 	public boolean gameEndxyas() {
 		Boolean bool = false;
 
@@ -270,6 +301,7 @@ public class Gamelogic {
 	/*
 	 * @return boolean
 	 */
+	//@ pure
 	public boolean gameEndxzas() {
 		Boolean bool = false;
 
@@ -306,6 +338,7 @@ public class Gamelogic {
 	/*
 	 * @return boolean
 	 */
+	//@ pure
 	public boolean gameEndyzas() {
 		Boolean bool = false;
 
@@ -342,6 +375,7 @@ public class Gamelogic {
 	/*
 	 * @return boolean
 	 */
+	//@ pure
 	public boolean gameEndxyzas() {
 		Boolean bool = false;
 
@@ -376,6 +410,7 @@ public class Gamelogic {
 	/*
 	 * @return list of players in the game
 	 */
+	//@ ensures \result.size() >= 0 & \result.size() <= 2
 	public Map<Integer, Player> getPlayers() {
 		return players;
 	}
@@ -383,6 +418,7 @@ public class Gamelogic {
 	/*
 	 * @return board
 	 */
+	//@ ensures \result != null
 	public Board getBoard() {
 		return board;
 	}
@@ -390,6 +426,7 @@ public class Gamelogic {
 	/*
 	 * @return the winning tile
 	 */
+	//@ ensures \result == Tile.RED || \result == Tile.YELLOW
 	public Tile getWinningTile() {
 		return tile;
 	}

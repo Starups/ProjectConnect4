@@ -40,6 +40,7 @@ public class Player {
      * @param tile
      */
 
+    //@ ensures getTile() = tile
     public void setTile(Tile tile) {
         this.tile = tile;
     }
@@ -47,6 +48,7 @@ public class Player {
      * @param amount
      */
 
+    //@ ensures getAmountTiles() = amount
     public void setAmountTiles(int amount) {
         amountTiles = amount;
     }
@@ -55,20 +57,22 @@ public class Player {
      * removes a tile after the player used it in their turn
      */
 
+    //@ ensures getAmountTiles() = /old(getAmountTiles()) - 1
     public void minusOne() {
         amountTiles = amountTiles - 1;
     }
    /*
     * amount of tiles the player has left
-    * 
-    * @return int of amount of tiles
     */
+
+    //@ \result <= 32 & \result >= 0
     public int getAmountTiles() {
         return amountTiles;
     }
     /*
      * @return tile 
      */
+    //@ \result == null || \result == Tile.RED || \result == Tile.Yellow
     public Tile getTile() {
         return tile;
     }
@@ -76,6 +80,8 @@ public class Player {
     /*
      * return name (name of the player)
      */
+
+    //@ \result != null
     public String getName() {
         return name;
     }
@@ -83,6 +89,8 @@ public class Player {
     /*
      * return connection
      */
+
+    //@ \result != null
     public Connection getConnection() {
         return connection;
     }

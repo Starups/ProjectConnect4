@@ -27,6 +27,10 @@ public class Board {
      * @param tile (the tile)
      * @param place (the place on the board on which the tile will be placed)
      */
+
+    //@ requires tile == Tile.RED || tile == Tile.YELLOW
+    //@ requires place <= 63 & place >= 0
+    //@ ensures getTileLocs().get(place) == tile
     public void putTile(Tile tile, int place) { 
         if (tileLocs.containsKey(place)) {
             tileLocs.replace(place, tile);
@@ -41,7 +45,8 @@ public class Board {
      * @param place (the place of the tile)
      * @return tileLocs (place of the tile)
      */
-    
+    //@ requires place <= 63 & place >= 0
+    //@ ensures \result = getTileLocs().get(place)
     public Tile getTile(int place) {
         return tileLocs.get(place);
     }
@@ -54,6 +59,10 @@ public class Board {
      * @return int (all values)
      */
 
+    //@ requires xcoord >= 0 & xcoord <= 3
+    //@ requires ycoord >= 0 & ycoord <= 3
+    //@ requires zcoord >= 0 & zcoord <= 3
+    //@ ensures \result = xcoord + 4 * ycoord + 16 * zcoord
     public int coordToInt(int xcoord, int ycoord, int zcoord) {
         return xcoord + 4 * ycoord + 16 * zcoord;
     }
@@ -62,6 +71,8 @@ public class Board {
      * @param coord (x value)
      * @return int (value)
      */
+    //@ requires coord <= 63 & coord >= 0
+    //@ ensures \result = coord % 4
     public int intToXCoord(int coord) {
         return coord % 4;
     }
@@ -69,7 +80,8 @@ public class Board {
      * @param coord (y value)
      * @return int (value)
      */
-
+    //@ requires coord <= 63 & coord >= 0
+    //@ ensures \result = (coord % 16) / 4
     public int intToYCoord(int coord) {
         return (coord % 16) / 4;
     }
@@ -77,7 +89,8 @@ public class Board {
      * @param coord (z value)
      * @return int (value)
      */
-
+    //@ requires coord <= 63 & coord >= 0
+    //@ ensures \result = coord / 16
     public int intToZCoord(int coord) {
         return coord / 16;
     }
@@ -87,7 +100,7 @@ public class Board {
      * 
      * @return tileLocs
      */
-    
+    //@ ensures \result.size() >= 0 & \result.size() <= 64
     public Map<Integer, Tile> getTileLocs() {
         return tileLocs;
     }
@@ -95,7 +108,7 @@ public class Board {
     /*
      * clears the board
      */
-
+    //@ ensures (\forall int i; 0 <= i && i < 64; getTile(i) == null);
     public void clear() {
         for (int i = 0; i < 64; i++) {
             this.putTile(null, i);
@@ -105,7 +118,7 @@ public class Board {
     /*
      * prints the board, 4x4x4
      */
-
+    //@ pure
     public void printBoard() {
         for (int z = 3; z >= 0; z--) {
             System.out.println("z = " + z);

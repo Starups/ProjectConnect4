@@ -68,7 +68,7 @@ public class Peer {
 					server.sendAll(sendall);
 				} else {
 					server.startGame();
-					String sendall = "startgame";
+					String sendall = "startgame " + lobby.getPlayer().get(0) + " " + lobby.getPlayer().get(1);
 					server.sendAll(sendall);
 					lobby.clearLobby();
 
@@ -125,7 +125,7 @@ public class Peer {
 					if (valid && putplace != -1) {
 						server.getGamelogic().putTile(player.getTile(), putplace);
 						server.sendAll("notifymove " + player.getName(
-								) + " " + xas + " " + yas + " " + zas);
+								) + " " + xas + " " + zas + " " + yas);
 
 						if (server.getGamelogic().gameEnd()) {
 							if (server.getGamelogic().getWinningTile() == Tile.RED) {
@@ -155,6 +155,7 @@ public class Peer {
 				askmove = server.getGamelogic().getPlayers().get(server.getGamelogic().getTurn());
 			
 
+				/*
 				if (lobby.getPlayer().size() == 0) {
 	     	 		boolean playerConnection = false;
     	  			for (int i = 0; i < server.getGamelogic().getPlayers().size(); i++) {
@@ -166,7 +167,7 @@ public class Peer {
     			  		result = "connectionlost";
     		  		}
 	      		}
-
+*/
 			} else {
 				if (server.getGamelogic().getPlayers().size() != 0) {
 					for (int i = 0; i < server.getGamelogic().getPlayers().size(); i++) {

@@ -14,7 +14,6 @@ public class ConnectionThread extends Thread {
 	PrintWriter out;
 	BufferedReader inputStream;
 	Connection connection;
-	Board board;
 	  
 	  //constructor
 	  /*
