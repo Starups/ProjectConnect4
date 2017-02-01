@@ -17,7 +17,7 @@ public class BoardTest {
     public void setUp() {
         board = new Board();
     }
-
+ 
     @Test
     public void putTileTest() {
         Tile tile = Tile.RED;
